@@ -6,6 +6,9 @@
     --main-bg-hover-color: #DF826C;
 }
 
+* {
+    font-weight: bold;
+}
 
 html, body {
     margin: 0;

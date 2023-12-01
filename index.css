@@ -2,8 +2,8 @@
 :root {
     --slide-height: 62px;
     --total-height: calc(var(--slide-height) * 4 + 40px);
-    --main-bg-color: #6DB9EF;
-    --main-bg-hover-color: #F4F27E;
+    --main-bg-color: #005B41;
+    --main-bg-hover-color: #232D3F;
 }
 
 * {
@@ -78,9 +78,7 @@ button, span {
     cursor: pointer;
 }
 
-
 /* ================================================ */
-
 
 nav li {
     height: 10px;

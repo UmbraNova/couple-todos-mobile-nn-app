@@ -16,10 +16,25 @@
         <div class="container">
             <img src="assets/cloud.png">
             <input type="text" id="input-field" placeholder="Bread">
-            <button id="add-button">Add to cart</button>
+            <button id="add-button">Add to List</button>
+
+            <!-- ========================== -->
+            <nav>
+                <label for="touch"><span>Category</span></label>
+                <input type="checkbox" id="touch">
+                <ul class="dropdown-menu">
+                  <li><button>To Do List</button></li> 
+                  <li><button>Shopping List</button></li>
+                  <li><button>Work Projects</button></li>
+                  <li><button>Carbs/Fats/Protein</button></li>
+                </ul>
+            </nav>
+            <!-- ========================== -->
+            
             <ul id="shopping-list">
             </ul>
         </div>
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
         <script src="index.js" type="module"></script>
     </body>
 </html>

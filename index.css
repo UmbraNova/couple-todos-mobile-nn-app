@@ -1,4 +1,11 @@
-/* Challenge: Make it so that the user cannot select the text */
+
+:root {
+    --slide-height: 62px;
+    --total-height: calc(var(--slide-height) * 4 + 40px);
+    --main-bg-color: #8ADAB2;
+    --main-bg-hover-color: #DF826C;
+}
+
 
 html, body {
     margin: 0;
@@ -33,23 +40,19 @@ input {
     margin: 10px 0;
 }
 
-button {
+button, span {
     color: #FDFDFD;
-    background-color: #AC485A;
+    background-color: var(--main-bg-color);
     border: 0;
     padding: 15px;
     border-radius: 8px;
     font-size: 20px;
     text-align: center;
     font-family: 'Rubik', sans-serif;
+    margin-bottom: 10px;
 }
 
-button:hover {
-    background-color: #432000;
-    cursor: pointer;
-}
-
-ul {
+#shopping-list {
     list-style-type: none;
     padding: 0;
     display: flex;
@@ -57,7 +60,7 @@ ul {
     gap: 10px;
 }
 
-ul li {
+#shopping-list li {
     font-size: 20px;
     background-color: #FFFDF8;
     padding: 15px;
@@ -67,7 +70,46 @@ ul li {
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2)
 }
 
-ul li:hover {
-    background-color: #FFECC7;
+#shopping-list li:hover, button:hover, span:hover {
+    background-color: var(--main-bg-hover-color);
     cursor: pointer;
 }
+
+
+/* ================================================ */
+
+
+nav li {
+    height: 10px;
+    list-style-type: none;
+    margin: 0;
+    padding: 26px;
+}
+
+li > button {width: 100%;}
+
+span {display: block;}
+
+span::after {
+    float: right;
+    content: "+";
+}
+
+.dropdown-menu {
+    background-color: #DCE1EB;
+    border-radius: 8px;
+    clear:both;
+    height:0px;
+    overflow: hidden;
+    padding: 0;
+    text-align: center;
+    transition: height .4s ease;
+}
+
+#touch {
+    height: 0px;
+    opacity: 0;
+    position: absolute;
+}
+
+#touch:checked + .dropdown-menu {height: var(--total-height);}

@@ -2,8 +2,8 @@
 :root {
     --slide-height: 62px;
     --total-height: calc(var(--slide-height) * 4 + 40px);
-    --main-bg-color: #8ADAB2;
-    --main-bg-hover-color: #DF826C;
+    --main-bg-color: #6DB9EF;
+    --main-bg-hover-color: #F4F27E;
 }
 
 * {

@@ -21,54 +21,70 @@ const shoppingListEl = document.getElementById("shopping-list")
 // LS = localstorage
 
 const usersInDB = ref(database, "usersCredentials")
-
-const loginButtonEl = document.getElementById("login-button")
+const logInButtonEl = document.getElementById("login-button")
 const singInButtonEl = document.getElementById("singin-button")
+const usernameFieldEl = document.getElementById("username-field")
+const passwordFieldEl = document.getElementById("password-field")
 
-let usernameFieldEl = document.getElementById("username-field")
-let passwordFieldEl = document.getElementById("password-field")
-
-let usernameValue = ""
-let passwordValue = ""
-
-loginButtonEl.addEventListener("click", addUserInDB)
-function addUserInDB() {
-    usernameValue = usernameFieldEl.value
-    passwordValue = passwordFieldEl.value
-
-    if (checkUserExists(usernameValue, passwordValue)) {
-        console.log("User already exists")
-    } else {
-        push(usersInDB, [usernameValue, passwordValue])
-    }   
-}
+let userExistsEl = document.getElementById("user-exists-el")
 
 
-let userNamePassword = ""  // username and password array from database
+logInButtonEl.addEventListener("click", logUserInLS)
+singInButtonEl.addEventListener("click", addUserInDB)
+
+
+let usersArray
 
 onValue(usersInDB, function(snapshot) {
     if (snapshot.exists()) {
-        let usersArray = Object.entries(snapshot.val())
-
-        for (let i = 0; i < usersArray.length; i++) {
-            let currentUser = usersArray[i]
-            let currentUserID = currentUser[0]
-            userNamePassword = currentUser[1]
-            console.log(currentUserID)
-            console.log(userNamePassword[0], "===========", userNamePassword[1])
-            
-        }
-        checkUserExists(userNamePassword)
-
+        usersArray = Object.values(snapshot.val())        
     } else {
         console.log("no user exists yet in database")
     }
 })
 
+let usernameValue = usernameFieldEl.value
+let passwordValue = passwordFieldEl.value
 
-function checkUserExists(userName, userPassword) {
-    if (userName == userNamePassword[0] && userPassword == userNamePassword[1]) {
+function checkUserExistsInDB() {
+    let userExistsInDB = false
+    for (let i = 0; i < usersArray.length; i++) {
+        let curUserName = usersArray[i][0]
+        let curUserPassword = usersArray[i][1]
+        if (usernameFieldEl.value == curUserName && passwordFieldEl.value == curUserPassword) {
+            userExistsInDB = true
+        }
+    }
+    return userExistsInDB
+}
+
+function addUserInDB() {
+    if (checkUserExistsInDB()) {
+        userExistsEl.textContent = "User already exists"
+    } else {
+        push(usersInDB, [usernameFieldEl.value, passwordFieldEl.value])
+        localStorage.setItem("isUserLogged", JSON.stringify(true))
+        openLoginWindow.textContent = usernameFieldEl.value
+        closeLoginWindow()
+    }   
+}
+
+function logUserInLS() {
+    if (checkUserExistsInDB()) {
+        localStorage.setItem("isUserLogged", JSON.stringify(true))
+        openLoginWindow.textContent = usernameFieldEl.value
+        closeLoginWindow()
+    } else {
+        userExistsEl.textContent = "User doesn't exist or password is incorect"
+    }
+}
+
+function checkUserLoggedInLS() {
+    const isUserLoggedLS = JSON.parse(localStorage.getItem("isUserLogged"))
+    if (isUserLoggedLS == true) {
         return true
+    } else {
+        return false
     }
 }
 
@@ -77,7 +93,6 @@ function checkUserExists(userName, userPassword) {
 // Login pop-up window START
 const openLoginWindow = document.getElementById("open-login-window-btn")
 const loginWindow = document.getElementById("login-window")
-const loginButton = document.getElementById("login-button")
 
 // Show the pop-up window when the link is clicked
 openLoginWindow.addEventListener("click", function(event) {
@@ -85,10 +100,14 @@ openLoginWindow.addEventListener("click", function(event) {
     loginWindow.style.display = "block"
 })
 
-// Hide the pop-up window when the close button is clicked
-loginButton.addEventListener("click", function() {
-    loginWindow.style.display = "none"
-})
+// Hide the pop-up window when the close button is clicked and user logs in/sings in
+function closeLoginWindow() {
+    if (checkUserLoggedInLS()) {
+        loginWindow.style.display = "none"
+    } else {
+        userExistsEl.textContent = "Wrong password or username"
+    }
+}
 // Login pop-up window END
 
 

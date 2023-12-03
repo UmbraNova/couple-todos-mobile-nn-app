@@ -31,43 +31,47 @@ let passwordFieldEl = document.getElementById("password-field")
 let usernameValue = ""
 let passwordValue = ""
 
-
 loginButtonEl.addEventListener("click", addUserInDB)
 function addUserInDB() {
     usernameValue = usernameFieldEl.value
     passwordValue = passwordFieldEl.value
-    push(usersInDB, [usernameValue, passwordValue])
-    
-    let exactUserLocationInDB = ""
-    // exactUserLocationInDB = ref(database, `usersCredentials/${usernameValue, passwordValue}`)
-    
-    console.log(exactUserLocationInDB)
-    if (exactUserLocationInDB) {
-        console.log("The user already exists")
-    }
-    
-    
-    // remove(exactUserLocationInDB)
+
+    if (checkUserExists(usernameValue, passwordValue)) {
+        console.log("User already exists")
+    } else {
+        push(usersInDB, [usernameValue, passwordValue])
+    }   
 }
 
+
+let userNamePassword = ""  // username and password array from database
 
 onValue(usersInDB, function(snapshot) {
     if (snapshot.exists()) {
         let usersArray = Object.entries(snapshot.val())
-        // clearShoppingListEl()
-        
+
         for (let i = 0; i < usersArray.length; i++) {
             let currentUser = usersArray[i]
             let currentUserID = currentUser[0]
-            let currentUserValue = currentUser[1]     
+            userNamePassword = currentUser[1]
             console.log(currentUserID)
-            console.log(currentUserValue)
-            // appendToShoppingListEl(currentItem)
-        }    
+            console.log(userNamePassword[0], "===========", userNamePassword[1])
+            
+        }
+        checkUserExists(userNamePassword)
+
     } else {
-        console.log("idk... else")
+        console.log("no user exists yet in database")
     }
 })
+
+
+function checkUserExists(userName, userPassword) {
+    if (userName == userNamePassword[0] && userPassword == userNamePassword[1]) {
+        return true
+    }
+}
+
 // user credentials to database END
 
 // Login pop-up window START

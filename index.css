@@ -19,7 +19,7 @@ html, body {
     user-select: none;
 }
 
-.container {
+.container, #login-container {
     display: flex;
     flex-direction: column;
     max-width: 320px;
@@ -75,10 +75,11 @@ button, span {
 
 #shopping-list li:hover, button:hover, span:hover {
     background-color: var(--main-bg-hover-color);
+    color: #FDFDFD;
     cursor: pointer;
 }
 
-/* ================================================ */
+/* dropdown START */
 
 nav li {
     height: 10px;
@@ -114,3 +115,11 @@ span::after {
 }
 
 #touch:checked + .dropdown-menu {height: var(--total-height);}
+
+/* dropdown END */
+
+/* login START */
+#login-container > div {
+    width: 100%;
+}
+/* login END */

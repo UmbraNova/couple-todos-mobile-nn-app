@@ -1,7 +1,8 @@
-
+/* declaring main variables */
 :root {
+    --category-multiply: 4;
     --slide-height: 62px;
-    --total-height: calc(var(--slide-height) * 4 + 40px);
+    --total-height: calc(var(--slide-height) * var(--category-multiply) + 40px);
     --main-bg-color: #005B41;
     --main-bg-hover-color: #232D3F;
 }
@@ -28,7 +29,7 @@ html, body {
 
 img {
     width: 150px;
-    margin: 0 auto;
+    margin: 10px auto;
 }
 
 input {
@@ -40,7 +41,7 @@ input {
     font-size: 20px;
     text-align: center;
     font-family: 'Rubik', sans-serif;
-    margin: 10px 0;
+    margin-bottom: 10px;
 }
 
 button, span {
@@ -73,10 +74,13 @@ button, span {
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2)
 }
 
-#shopping-list li:hover, button:hover, span:hover {
-    background-color: var(--main-bg-hover-color);
-    color: #FDFDFD;
-    cursor: pointer;
+/* deactivate the hover effect on mobile devices */
+@media (hover: hover) {
+    #shopping-list li:hover, button:hover, span:hover {
+        background-color: var(--main-bg-hover-color);
+        color: #FDFDFD;
+        cursor: pointer;
+    }
 }
 
 /* dropdown START */
@@ -118,8 +122,32 @@ span::after {
 
 /* dropdown END */
 
+/* #login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
 /* login START */
-#login-container > div {
-    width: 100%;
+#login-window {
+    background: white;
+    border: 1px solid black;
+    border-radius: 8px;
+    display: none;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: fixed;
+    padding: 30px;
+    text-align: center;
+    z-index: 10;
+  }
+
+#login-window-content {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 300px;
 }
 /* login END */

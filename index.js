@@ -16,79 +16,91 @@ const shoppingListEl = document.getElementById("shopping-list")
 // =========================================== Experimental
 // =========================================== Experimental
 
-// user credentials to database START
+// user credentials to LS and group to DB START
 // DB = database
 // LS = localstorage
 
-const usersInDB = ref(database, "usersCredentials")
-const logInButtonEl = document.getElementById("login-button")
-const singInButtonEl = document.getElementById("singin-button")
-const usernameFieldEl = document.getElementById("username-field")
+const groupsInDB = ref(database, "groupCredentials")
+const enterGroupButtonEl = document.getElementById("enter-group-button")
+const newGroupButtonEl = document.getElementById("new-group-button")
+const groupNameFieldEl = document.getElementById("group-name-field")
 const passwordFieldEl = document.getElementById("password-field")
+const groupExitButtonEl = document.getElementById("exit-group-button")
 
-let userExistsEl = document.getElementById("user-exists-el")
-
-
-logInButtonEl.addEventListener("click", logUserInLS)
-singInButtonEl.addEventListener("click", addUserInDB)
+let groupExistsEl = document.getElementById("group-exists-el")
 
 
-let usersArray
+enterGroupButtonEl.addEventListener("click", enterGroup)
+newGroupButtonEl.addEventListener("click", addGroupInDB)
+groupExitButtonEl.addEventListener("click", exitGroupInLS)
 
-onValue(usersInDB, function(snapshot) {
+
+let groupArray = []
+
+onValue(groupsInDB, function(snapshot) {
     if (snapshot.exists()) {
-        usersArray = Object.values(snapshot.val())        
+        groupArray = Object.values(snapshot.val())        
     } else {
-        console.log("no user exists yet in database")
+        console.log("no group exists yet in database")
     }
 })
 
-let usernameValue = usernameFieldEl.value
-let passwordValue = passwordFieldEl.value
-
-function checkUserExistsInDB() {
-    let userExistsInDB = false
-    for (let i = 0; i < usersArray.length; i++) {
-        let curUserName = usersArray[i][0]
-        let curUserPassword = usersArray[i][1]
-        if (usernameFieldEl.value == curUserName && passwordFieldEl.value == curUserPassword) {
-            userExistsInDB = true
-        }
-    }
-    return userExistsInDB
-}
-
-function addUserInDB() {
-    if (checkUserExistsInDB()) {
-        userExistsEl.textContent = "User already exists"
+function addGroupInDB() {
+    if (checkGroupExistsInDB(groupNameFieldEl.value)) {
+        groupExistsEl.textContent = "Group already exists"
     } else {
-        push(usersInDB, [usernameFieldEl.value, passwordFieldEl.value])
-        localStorage.setItem("isUserLogged", JSON.stringify(true))
-        openLoginWindow.textContent = usernameFieldEl.value
-        closeLoginWindow()
+        push(groupsInDB, [groupNameFieldEl.value, passwordFieldEl.value])
+        enterGroup()
     }   
 }
 
-function logUserInLS() {
-    if (checkUserExistsInDB()) {
-        localStorage.setItem("isUserLogged", JSON.stringify(true))
-        openLoginWindow.textContent = usernameFieldEl.value
+function enterGroup() {
+    let groupNameValue = groupNameFieldEl.value
+    if (checkGroupExistsInDB(groupNameValue)) {
+        changeVisualAfterLogIn(groupNameValue)
+        logInUserLS(groupNameValue)
         closeLoginWindow()
     } else {
-        userExistsEl.textContent = "User doesn't exist or password is incorect"
+        groupExistsEl.textContent = "Group doesn't exist or password is incorect"
     }
 }
 
-function checkUserLoggedInLS() {
-    const isUserLoggedLS = JSON.parse(localStorage.getItem("isUserLogged"))
-    if (isUserLoggedLS == true) {
-        return true
-    } else {
-        return false
+function checkGroupExistsInDB(groupName) {
+    let groupExistsInDB = false
+    for (let i = 0; i < groupArray.length; i++) {
+        let curGroupName = groupArray[i][0]
+        if (groupName == curGroupName) {
+            groupExistsInDB = true
+        }
     }
+    return groupExistsInDB
 }
 
-// user credentials to database END
+function logInUserLS(groupName) {
+    localStorage.setItem("isUserLogged", JSON.stringify(true))
+    localStorage.setItem("groupNameLS", JSON.stringify(groupName))
+}
+
+
+function changeVisualAfterLogIn(name="Login group") {
+    openLoginWindow.textContent = name
+    openLoginWindow.style.backgroundColor = "#232D3F"
+    groupNameFieldEl.value = ""
+    passwordFieldEl.value = ""
+}
+
+function changeVisualEfterExit() {
+    openLoginWindow.textContent = "Login group"
+    openLoginWindow.style.backgroundColor = "#005B41"
+    groupNameFieldEl.value = ""
+    passwordFieldEl.value = ""
+}
+
+function exitGroupInLS() {
+    closeLoginWindow()
+    localStorage.setItem("isUserLogged", JSON.stringify(false))
+    changeVisualEfterExit()
+}
 
 // Login pop-up window START
 const openLoginWindow = document.getElementById("open-login-window-btn")
@@ -102,14 +114,22 @@ openLoginWindow.addEventListener("click", function(event) {
 
 // Hide the pop-up window when the close button is clicked and user logs in/sings in
 function closeLoginWindow() {
-    if (checkUserLoggedInLS()) {
-        loginWindow.style.display = "none"
-    } else {
-        userExistsEl.textContent = "Wrong password or username"
-    }
+    loginWindow.style.display = "none"
+    groupExistsEl.textContent = ""
 }
 // Login pop-up window END
 
+
+const isUserLoggedInGroup = JSON.parse( localStorage.getItem("isUserLogged"))
+if (isUserLoggedInGroup == true) {
+    // openLoginWindow.style.backgroundColor = "#232D3F"
+    let groupNameLS = JSON.parse(localStorage.getItem("groupNameLS"))
+    changeVisualAfterLogIn(groupNameLS)
+}
+// need another option... to check from DB
+
+
+// user credentials to LS and group to DB END
 
 
 

@@ -24,12 +24,17 @@ html, body {
     display: flex;
     flex-direction: column;
     max-width: 320px;
-    margin: 30px auto;
+    margin: 0px auto;
 }
 
+#login-container {
+    margin-top: 20px;
+}
+
+
 img {
-    width: 150px;
-    margin: 10px auto;
+    width: 130px;
+    margin: 0 auto;
 }
 
 input {
@@ -53,7 +58,6 @@ button, span {
     font-size: 20px;
     text-align: center;
     font-family: 'Rubik', sans-serif;
-    margin-bottom: 10px;
 }
 
 #shopping-list {
@@ -62,6 +66,10 @@ button, span {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+}
+
+.container button, #login-container button {
+    margin-bottom: 10px;
 }
 
 #shopping-list li {
@@ -121,12 +129,6 @@ span::after {
 #touch:checked + .dropdown-menu {height: var(--total-height);}
 
 /* dropdown END */
-
-/* #login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
 
 /* login START */
 #login-window {

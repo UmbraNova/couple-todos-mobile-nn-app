@@ -11,7 +11,7 @@ const database = getDatabase(app)
 
 const inputFieldEl = document.getElementById("input-field")
 const addButtonEl = document.getElementById("add-button")
-const shoppingListEl = document.getElementById("shopping-list")
+const groupListEl = document.getElementById("shopping-list")
 
 // DB = database
 // LS = localstorage
@@ -23,7 +23,7 @@ const groupNameFieldEl = document.getElementById("group-name-field")
 const passwordFieldEl = document.getElementById("password-field")
 const groupExitButtonEl = document.getElementById("exit-group-button")
 
-let groupExistsEl = document.getElementById("group-exists-el")
+let loginErrorInfoEl = document.getElementById("login-error-info-el")
 
 let isUserLoggedInGroup = JSON.parse( localStorage.getItem("isUserLogged"))
 let groupNameLS = JSON.parse(localStorage.getItem("groupNameLS"))
@@ -50,22 +50,26 @@ onValue(groupsInDB, function(snapshot) {
 
 function addGroupInDB() {
     if (checkGroupExistsInDB(groupNameFieldEl.value)) {
-        groupExistsEl.textContent = "Group already exists"
+        loginErrorInfoEl.textContent = "Group already exists"
     } else {
-        push(groupsInDB, [groupNameFieldEl.value, passwordFieldEl.value])
-        enterGroup()
+        if (groupNameFieldEl.value && groupNameFieldEl.value.length > 3 && /\S/.test(groupNameFieldEl.value)) {
+            push(groupsInDB, [groupNameFieldEl.value, passwordFieldEl.value])
+            enterGroup()
+        } else {
+            loginErrorInfoEl.innerHTML = "Empty name and password, length must be 4 characters or more"
+        }
     }   
 }
 
 function enterGroup() {
     let groupNameValue = groupNameFieldEl.value
     if (checkGroupExistsInDB(groupNameValue)) {
+        location.reload()
         changeVisualAfterLogIn(groupNameValue)
         logInUserLS(groupNameValue)
         closeLoginWindow()
-        location.reload()
     } else {
-        groupExistsEl.textContent = "Group doesn't exist or password is incorect"
+        loginErrorInfoEl.textContent = "Group doesn't exist or password is incorect"
     }
 }
 
@@ -106,10 +110,10 @@ function exitGroupInLS() {
     closeLoginWindow()
     localStorage.setItem("isUserLogged", JSON.stringify(false))
     localStorage.setItem("groupNameLS", JSON.stringify("0"))
-    groupNameLS = "0"
-    shoppingListEl.innerHTML = "No items... yet"
-    changeVisualEfterExit()
     location.reload()
+    groupNameLS = "0"
+    groupListEl.innerHTML = "No items... yet"
+    changeVisualEfterExit()
 }
 
 const openLoginWindow = document.getElementById("open-login-window-btn")
@@ -122,7 +126,7 @@ openLoginWindow.addEventListener("click", function(event) {
 
 function closeLoginWindow() {
     loginWindow.style.display = "none"
-    groupExistsEl.textContent = ""
+    loginErrorInfoEl.textContent = ""
 }
 
 
@@ -156,35 +160,35 @@ addButtonEl.addEventListener("click", function() {
         changeBGColorOnMobile(addButtonEl)
         clearInputFieldEl()
     } else {
-        shoppingListEl.innerHTML = "You need to enter a group..."
+        groupListEl.innerHTML = "You need to enter a group..."
     }
 })
 
 onValue(itemsListInDB, function(snapshot) {
     if (snapshot.exists() && isUserLoggedInGroup == true) {
         let itemsArray = Object.entries(snapshot.val())
-        clearShoppingListEl()
+        clearGroupListEl()
         
         for (let i = 0; i < itemsArray.length; i++) {
             let currentItem = itemsArray[i]
             // let currentItemID = currentItem[0]
             // let currentItemValue = currentItem[1] 
-            appendToShoppingListEl(currentItem)
+            appendToGroupListEl(currentItem)
         }    
     } else {
-        shoppingListEl.innerHTML = "No items... yet"
+        groupListEl.innerHTML = "No items... yet"
     }
 })
 
-function clearShoppingListEl() {
-    shoppingListEl.innerHTML = ""
+function clearGroupListEl() {
+    groupListEl.innerHTML = ""
 }
 
 function clearInputFieldEl() {
     inputFieldEl.value = ""
 }
 
-function appendToShoppingListEl(item) {
+function appendToGroupListEl(item) {
     let itemID = item[0]
     let itemValue = item[1]
     let newEl = document.createElement("li")
@@ -194,5 +198,5 @@ function appendToShoppingListEl(item) {
         let exactItemLocationInDB = ref(database, `${groupNameLS}/${itemID}`) 
         remove(exactItemLocationInDB)
     })
-    shoppingListEl.append(newEl)
+    groupListEl.append(newEl)
 }

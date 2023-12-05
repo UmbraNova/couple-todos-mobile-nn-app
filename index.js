@@ -7,16 +7,12 @@ const appSettings = {
 
 const app = initializeApp(appSettings)
 const database = getDatabase(app)
-const shoppingListInDB = ref(database, "shoppingList")
+
 
 const inputFieldEl = document.getElementById("input-field")
 const addButtonEl = document.getElementById("add-button")
 const shoppingListEl = document.getElementById("shopping-list")
 
-// =========================================== Experimental
-// =========================================== Experimental
-
-// user credentials to LS and group to DB START
 // DB = database
 // LS = localstorage
 
@@ -29,20 +25,27 @@ const groupExitButtonEl = document.getElementById("exit-group-button")
 
 let groupExistsEl = document.getElementById("group-exists-el")
 
+let isUserLoggedInGroup = JSON.parse( localStorage.getItem("isUserLogged"))
+let groupNameLS = JSON.parse(localStorage.getItem("groupNameLS"))
+const itemsListInDB = ref(database, groupNameLS)
 
 enterGroupButtonEl.addEventListener("click", enterGroup)
 newGroupButtonEl.addEventListener("click", addGroupInDB)
 groupExitButtonEl.addEventListener("click", exitGroupInLS)
 
 
-let groupArray = []
+let groupArrayDB = []
+// let groupKeysDB = []
+
 
 onValue(groupsInDB, function(snapshot) {
     if (snapshot.exists()) {
-        groupArray = Object.values(snapshot.val())        
+        groupArrayDB = Object.values(snapshot.val())        
+        // groupKeysDB = Object.keys(snapshot.val())
     } else {
         console.log("no group exists yet in database")
     }
+    // console.log(groupKeysDB)
 })
 
 function addGroupInDB() {
@@ -60,15 +63,18 @@ function enterGroup() {
         changeVisualAfterLogIn(groupNameValue)
         logInUserLS(groupNameValue)
         closeLoginWindow()
+        location.reload()
     } else {
         groupExistsEl.textContent = "Group doesn't exist or password is incorect"
     }
 }
 
+
+
 function checkGroupExistsInDB(groupName) {
     let groupExistsInDB = false
-    for (let i = 0; i < groupArray.length; i++) {
-        let curGroupName = groupArray[i][0]
+    for (let i = 0; i < groupArrayDB.length; i++) {
+        let curGroupName = groupArrayDB[i][0]
         if (groupName == curGroupName) {
             groupExistsInDB = true
         }
@@ -99,41 +105,32 @@ function changeVisualEfterExit() {
 function exitGroupInLS() {
     closeLoginWindow()
     localStorage.setItem("isUserLogged", JSON.stringify(false))
+    localStorage.setItem("groupNameLS", JSON.stringify("0"))
+    groupNameLS = "0"
+    shoppingListEl.innerHTML = "No items... yet"
     changeVisualEfterExit()
+    location.reload()
 }
 
-// Login pop-up window START
 const openLoginWindow = document.getElementById("open-login-window-btn")
 const loginWindow = document.getElementById("login-window")
 
-// Show the pop-up window when the link is clicked
 openLoginWindow.addEventListener("click", function(event) {
     event.preventDefault()
     loginWindow.style.display = "block"
 })
 
-// Hide the pop-up window when the close button is clicked and user logs in/sings in
 function closeLoginWindow() {
     loginWindow.style.display = "none"
     groupExistsEl.textContent = ""
 }
-// Login pop-up window END
 
 
-const isUserLoggedInGroup = JSON.parse( localStorage.getItem("isUserLogged"))
+
 if (isUserLoggedInGroup == true) {
-    // openLoginWindow.style.backgroundColor = "#232D3F"
-    let groupNameLS = JSON.parse(localStorage.getItem("groupNameLS"))
     changeVisualAfterLogIn(groupNameLS)
 }
-// need another option... to check from DB
 
-
-// user credentials to LS and group to DB END
-
-
-
-// -------------------------------------------------------- ready section
 
 // Change the background color on mobile devices
 function changeBGColorOnMobile(changeElBG) {
@@ -153,21 +150,25 @@ document.documentElement.style.setProperty("--category-multiply", "4")
 // =========================================== Experimental
 
 addButtonEl.addEventListener("click", function() {
-    let inputValue = inputFieldEl.value
-    push(shoppingListInDB, inputValue)
-    changeBGColorOnMobile(addButtonEl)
-    clearInputFieldEl()
+    if (isUserLoggedInGroup == true) {
+        let inputValue = inputFieldEl.value
+        push(itemsListInDB, inputValue)
+        changeBGColorOnMobile(addButtonEl)
+        clearInputFieldEl()
+    } else {
+        shoppingListEl.innerHTML = "You need to enter a group..."
+    }
 })
 
-onValue(shoppingListInDB, function(snapshot) {
-    if (snapshot.exists()) {
+onValue(itemsListInDB, function(snapshot) {
+    if (snapshot.exists() && isUserLoggedInGroup == true) {
         let itemsArray = Object.entries(snapshot.val())
         clearShoppingListEl()
         
         for (let i = 0; i < itemsArray.length; i++) {
             let currentItem = itemsArray[i]
             // let currentItemID = currentItem[0]
-            // let currentItemValue = currentItem[1]     
+            // let currentItemValue = currentItem[1] 
             appendToShoppingListEl(currentItem)
         }    
     } else {
@@ -190,7 +191,7 @@ function appendToShoppingListEl(item) {
     newEl.textContent = itemValue
     
     newEl.addEventListener("click", function() {
-        let exactItemLocationInDB = ref(database, `shoppingList/${itemID}`) 
+        let exactItemLocationInDB = ref(database, `${groupNameLS}/${itemID}`) 
         remove(exactItemLocationInDB)
     })
     shoppingListEl.append(newEl)

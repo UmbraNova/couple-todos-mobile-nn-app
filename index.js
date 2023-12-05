@@ -191,11 +191,16 @@ onValue(itemsListInDB, function(snapshot) {
     }
 })
 
-localStorage.setItem("isUserLogged", JSON.stringify(false))
-localStorage.setItem("groupNameLS", JSON.stringify("0"))
-groupNameLS = "0"
-groupListEl.innerHTML = "FIX!!!"
-
+let fixEl = document.getElementById("fix")
+fixEl.addEventListener("click", fix)
+function fix() {
+    
+    localStorage.setItem("isUserLogged", JSON.stringify(false))
+    localStorage.setItem("groupNameLS", JSON.stringify("0"))
+    groupNameLS = "0"
+    groupListEl.innerHTML = "FIX!!!"
+    
+}
 
 function clearGroupListEl() {
     groupListEl.innerHTML = ""

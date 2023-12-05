@@ -167,6 +167,9 @@ addButtonEl.addEventListener("click", function() {
         clearInputFieldEl()
     } else {
         groupListEl.innerHTML = "You need to enter a group..."
+        // if the input is empty and user is logged
+        // this is to set everything to default in case of error in the data.
+        exitGroupInLS()
     }
 })
 

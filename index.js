@@ -166,10 +166,9 @@ addButtonEl.addEventListener("click", function() {
         changeBGColorOnMobile(addButtonEl)
         clearInputFieldEl()
     } else {
-        groupListEl.innerHTML = "You need to enter a group..."
         // if the input is empty and user is logged
         // this is to set everything to default in case of error in the data.
-        exitGroupInLS()
+        groupListEl.innerHTML = "You need to enter a group..."
     }
 })
 
@@ -185,6 +184,9 @@ onValue(itemsListInDB, function(snapshot) {
             appendToGroupListEl(currentItem)
         }    
     } else {
+        localStorage.setItem("isUserLogged", JSON.stringify(false))
+        localStorage.setItem("groupNameLS", JSON.stringify("0"))
+        groupNameLS = "0"
         groupListEl.innerHTML = "No items... yet"
     }
 })

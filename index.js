@@ -52,13 +52,19 @@ function addGroupInDB() {
     if (checkGroupExistsInDB(groupNameFieldEl.value)) {
         loginErrorInfoEl.textContent = "Group already exists"
     } else {
-        if (groupNameFieldEl.value && groupNameFieldEl.value.length > 3 && /\S/.test(groupNameFieldEl.value)) {
+        if (testNameAndPassword()) {
             push(groupsInDB, [groupNameFieldEl.value, passwordFieldEl.value])
             enterGroup()
         } else {
             loginErrorInfoEl.innerHTML = "Empty name and password, length must be 4 characters or more"
         }
     }   
+}
+
+function testNameAndPassword() {
+    if (groupNameFieldEl.value.length > 3 && /\S/.test(groupNameFieldEl.value) && passwordFieldEl.value.length > 3 && /\S/.test(passwordFieldEl.value)) {
+        return true
+    }
 }
 
 function enterGroup() {

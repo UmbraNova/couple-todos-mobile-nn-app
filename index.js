@@ -5,16 +5,15 @@ const appSettings = {
     databaseURL: "https://couple-todos-default-rtdb.europe-west1.firebasedatabase.app/"
 }
 
+// DB = database
+// LS = localstorage
+
 const app = initializeApp(appSettings)
 const database = getDatabase(app)
-
 
 const inputFieldEl = document.getElementById("input-field")
 const addButtonEl = document.getElementById("add-button")
 const groupListEl = document.getElementById("group-list")
-
-// DB = database
-// LS = localstorage
 
 const groupsInDB = ref(database, "groupCredentials")
 const enterGroupButtonEl = document.getElementById("enter-group-button")
@@ -22,6 +21,9 @@ const newGroupButtonEl = document.getElementById("new-group-button")
 const groupNameFieldEl = document.getElementById("group-name-field")
 const passwordFieldEl = document.getElementById("password-field")
 const groupExitButtonEl = document.getElementById("exit-group-button")
+
+const openLoginWindow = document.getElementById("open-login-window-btn")
+const loginWindow = document.getElementById("login-window")
 
 let loginErrorInfoEl = document.getElementById("login-error-info-el")
 
@@ -33,10 +35,8 @@ enterGroupButtonEl.addEventListener("click", enterGroup)
 newGroupButtonEl.addEventListener("click", addGroupInDB)
 groupExitButtonEl.addEventListener("click", exitGroupInLS)
 
-
 let groupArrayDB = []
 // let groupKeysDB = []
-
 
 onValue(groupsInDB, function(snapshot) {
     if (snapshot.exists()) {
@@ -77,8 +77,6 @@ function enterGroup() {
     }
 }
 
-
-
 function checkGroupExistsInDB(groupName) {
     let groupExistsInDB = false
     for (let i = 0; i < groupArrayDB.length; i++) {
@@ -94,7 +92,6 @@ function logInUserLS(groupName) {
     localStorage.setItem("isUserLogged", JSON.stringify(true))
     localStorage.setItem("groupNameLS", JSON.stringify(groupName))
 }
-
 
 function changeVisualAfterLogIn(name="Login group") {
     openLoginWindow.textContent = name
@@ -120,9 +117,6 @@ function exitGroupInLS() {
     changeVisualEfterExit()
 }
 
-const openLoginWindow = document.getElementById("open-login-window-btn")
-const loginWindow = document.getElementById("login-window")
-
 openLoginWindow.addEventListener("click", function(event) {
     event.preventDefault()
     loginWindow.style.display = "block"
@@ -133,12 +127,9 @@ function closeLoginWindow() {
     loginErrorInfoEl.textContent = ""
 }
 
-
-
 if (isUserLoggedInGroup == true) {
     changeVisualAfterLogIn(groupNameLS)
 }
-
 
 // Change the background color on mobile devices
 function changeBGColorOnMobile(changeElBG) {
@@ -151,11 +142,7 @@ function changeBGColorOnMobile(changeElBG) {
 
 // Change the height of category baset on elements in it
 document.documentElement.style.setProperty("--category-multiply", "4")
-// $(":root").css("--category-multiply", "4")
 
-
-// =========================================== Experimental
-// =========================================== Experimental
 
 addButtonEl.addEventListener("click", function() {
     addButtonEl.style.color = "red"
@@ -168,6 +155,11 @@ addButtonEl.addEventListener("click", function() {
         // if the input is empty and user is logged
         // this is to set everything to default in case of error in the data.
         groupListEl.innerHTML = "You need to enter a group..."
+        localStorage.setItem("isUserLogged", JSON.stringify(false))
+        localStorage.setItem("groupNameLS", JSON.stringify("0"))
+        groupNameLS = "0"
+        location.reload()
+        groupListEl.innerHTML = "No items... yet"
     }
 })
 
@@ -189,8 +181,6 @@ onValue(itemsListInDB, function(snapshot) {
         groupListEl.innerHTML = "No items... yet"
     }
 })
-
-
 
 function clearGroupListEl() {
     groupListEl.innerHTML = ""

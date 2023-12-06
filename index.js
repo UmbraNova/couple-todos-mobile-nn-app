@@ -11,7 +11,7 @@ const database = getDatabase(app)
 
 const inputFieldEl = document.getElementById("input-field")
 const addButtonEl = document.getElementById("add-button")
-const groupListEl = document.getElementById("shopping-list")
+const groupListEl = document.getElementById("group-list")
 
 // DB = database
 // LS = localstorage
@@ -60,12 +60,13 @@ function addGroupInDB() {
 }
 
 function testNameAndPassword() {
-    if (groupNameFieldEl.value.length > 3 && /\S/.test(groupNameFieldEl.value) && passwordFieldEl.value.length > 3 && /\S/.test(passwordFieldEl.value)) {
+    // if (groupNameFieldEl.value.length > 3 && /\S/.test(groupNameFieldEl.value) && passwordFieldEl.value.length > 3 && /\S/.test(passwordFieldEl.value)) {
         return true
-    }
+    // }
 }
 
 function enterGroup() {
+    addButtonEl.style.color = "red"
     let groupNameValue = groupNameFieldEl.value
     if (checkGroupExistsInDB(groupNameValue)) {
         location.reload()

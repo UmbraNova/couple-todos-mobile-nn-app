@@ -35,7 +35,7 @@ enterGroupButtonEl.addEventListener("click", enterGroup)
 newGroupButtonEl.addEventListener("click", addGroupInDB)
 groupExitButtonEl.addEventListener("click", exitGroupInLS)
 
-let groupArrayDB = []
+let groupArrayDB = [] 
 
 onValue(groupsInDB, function(snapshot) {
     if (snapshot.exists()) {

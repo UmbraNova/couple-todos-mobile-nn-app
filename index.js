@@ -143,25 +143,28 @@ function changeBGColorOnMobile(changeElBG) {
 // Change the height of category baset on elements in it
 document.documentElement.style.setProperty("--category-multiply", "4")
 
-
 addButtonEl.addEventListener("click", function() {
     addButtonEl.style.color = "red"
-    if (isUserLoggedInGroup == true) {
-        let inputValue = inputFieldEl.value
-        push(itemsListInDB, inputValue)
-        changeBGColorOnMobile(addButtonEl)
-        clearInputFieldEl()
-    } else {
-        // if the input is empty and user is logged
-        // this is to set everything to default in case of error in the data.
-        groupListEl.innerHTML = "You need to enter a group..."
-        localStorage.setItem("isUserLogged", JSON.stringify(false))
-        localStorage.setItem("groupNameLS", JSON.stringify("0"))
-        groupNameLS = "0"
-        location.reload()
-        groupListEl.innerHTML = "No items... yet"
-    }
 })
+
+// addButtonEl.addEventListener("click", function() {
+//     addButtonEl.style.color = "red"
+//     if (isUserLoggedInGroup == true) {
+//         let inputValue = inputFieldEl.value
+//         push(itemsListInDB, inputValue)
+//         changeBGColorOnMobile(addButtonEl)
+//         clearInputFieldEl()
+//     } else {
+//         // if the input is empty and user is logged
+//         // this is to set everything to default in case of error in the data.
+//         groupListEl.innerHTML = "You need to enter a group..."
+//         localStorage.setItem("isUserLogged", JSON.stringify(false))
+//         localStorage.setItem("groupNameLS", JSON.stringify("0"))
+//         groupNameLS = "0"
+//         location.reload()
+//         groupListEl.innerHTML = "No items... yet"
+//     }
+// })
 
 onValue(itemsListInDB, function(snapshot) {
     if (snapshot.exists() && isUserLoggedInGroup == true) {

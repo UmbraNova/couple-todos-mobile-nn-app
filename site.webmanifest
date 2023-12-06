@@ -1,6 +1,6 @@
 {
-    "name": "Couple ToDo's",
-    "short_name": "Couple ToDo's",
+    "name": "CoupleToDos",
+    "short_name": "CoupleToDos",
     "icons":
         [
             {"src":"assets/android-chrome-192x192.png","sizes":"192x192","type":"image/png"},

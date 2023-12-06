@@ -29,7 +29,7 @@ let loginErrorInfoEl = document.getElementById("login-error-info-el")
 
 console.log(JSON.parse(localStorage.getItem("groupNameLS")))
 if (JSON.parse(localStorage.getItem("groupNameLS")) == null) {
-    localStorage.setItem("groupNameLS", JSON.stringify(``))
+    localStorage.setItem("groupNameLS", JSON.stringify("-"))
 }
 console.log(JSON.parse(localStorage.getItem("groupNameLS")))
 
@@ -99,15 +99,15 @@ function logInUserLS(groupName) {
 function changeVisualAfterLogIn(name="Login group") {
     openLoginWindow.textContent = name
     openLoginWindow.style.backgroundColor = "#232D3F"
-    groupNameFieldEl.value = ``
-    passwordFieldEl.value = ``
+    groupNameFieldEl.value = ""
+    passwordFieldEl.value = ""
 }
 
 function changeVisualEfterExit() {
     openLoginWindow.textContent = "Login group"
     openLoginWindow.style.backgroundColor = "#005B41"
-    groupNameFieldEl.value = ``
-    passwordFieldEl.value = ``
+    groupNameFieldEl.value = ""
+    passwordFieldEl.value = ""
 }
 
 function exitGroupInLS() {
@@ -127,7 +127,7 @@ openLoginWindow.addEventListener("click", function(event) {
 
 function closeLoginWindow() {
     loginWindow.style.display = "none"
-    loginErrorInfoEl.textContent = ``
+    loginErrorInfoEl.textContent = ""
 }
 
 if (isUserLoggedInGroup == true) {
@@ -199,11 +199,11 @@ onValue(itemsListInDB, function(snapshot) {
 })
 
 function clearGroupListEl() {
-    groupListEl.innerHTML = ``
+    groupListEl.innerHTML = ""
 }
 
 function clearInputFieldEl() {
-    inputFieldEl.value = ``
+    inputFieldEl.value = ""
 }
 
 function appendToGroupListEl(item) {

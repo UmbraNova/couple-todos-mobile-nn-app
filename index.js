@@ -27,6 +27,10 @@ const loginWindow = document.getElementById("login-window")
 
 let loginErrorInfoEl = document.getElementById("login-error-info-el")
 
+console.log(JSON.parse(localStorage.getItem("groupNameLS")).length)
+if (JSON.parse(localStorage.getItem("groupNameLS")).length < 3) {
+    localStorage.setItem("groupNameLS", JSON.stringify(""))
+}
 let isUserLoggedInGroup = JSON.parse( localStorage.getItem("isUserLogged"))
 let groupNameLS = JSON.parse(localStorage.getItem("groupNameLS"))
 const itemsListInDB = ref(database, groupNameLS)
@@ -181,7 +185,7 @@ onValue(itemsListInDB, function(snapshot) {
         for (let i = 0; i < itemsArray.length; i++) {
             let currentItem = itemsArray[i]
             // let currentItemID = currentItem[0]
-            // let currentItemValue = currentItem[1] 
+            // let currentItemValue = currentItem[1]
             appendToGroupListEl(currentItem)
         }    
     } else {

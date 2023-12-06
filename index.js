@@ -149,6 +149,12 @@ addButtonEl.addEventListener("click", function() {
     addButtonEl.style.color = "red"
 })
 
+let why = document.getElementById("why")
+why.addEventListener("click", function() {
+    why.style.backgroundColor = "red"
+    why.style.color = "yellow"
+})
+
 // addButtonEl.addEventListener("click", function() {
 //     addButtonEl.style.color = "red"
 //     if (isUserLoggedInGroup == true) {

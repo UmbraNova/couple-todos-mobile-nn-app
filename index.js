@@ -27,8 +27,8 @@ const loginWindow = document.getElementById("login-window")
 
 let loginErrorInfoEl = document.getElementById("login-error-info-el")
 
-console.log(JSON.parse(localStorage.getItem("groupNameLS")).length)
-if (JSON.parse(localStorage.getItem("groupNameLS")).length < 3) {
+console.log(JSON.parse(localStorage.getItem("groupNameLS")))
+if (JSON.parse(localStorage.getItem("groupNameLS"))) {
     localStorage.setItem("groupNameLS", JSON.stringify(""))
 }
 let isUserLoggedInGroup = JSON.parse( localStorage.getItem("isUserLogged"))

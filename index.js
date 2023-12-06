@@ -147,19 +147,19 @@ function changeBGColorOnMobile(changeElBG) {
 // Change the height of category baset on elements in it
 document.documentElement.style.setProperty("--category-multiply", "4")
 
-addButtonEl.style.color = "blue"
+// addButtonEl.style.color = "blue"
 
-addButtonEl.addEventListener("click", function() {
-    addButtonEl.style.color = "red"
-    why.style.backgroundColor = "aqua"
-    why.style.color = "lime"
-})
+// addButtonEl.addEventListener("click", function() {
+//     addButtonEl.style.color = "red"
+//     why.style.backgroundColor = "aqua"
+//     why.style.color = "lime"
+// })
 
-let why = document.getElementById("why")
-why.addEventListener("click", function() {
-    why.style.backgroundColor = "red"
-    why.style.color = "yellow"
-})
+// let why = document.getElementById("why")
+// why.addEventListener("click", function() {
+//     why.style.backgroundColor = "red"
+//     why.style.color = "yellow"
+// })
 
 addButtonEl.addEventListener("click", function() {
     addButtonEl.style.color = "red"

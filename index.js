@@ -27,12 +27,13 @@ const loginWindow = document.getElementById("login-window")
 
 let loginErrorInfoEl = document.getElementById("login-error-info-el")
 
-console.log(JSON.parse(localStorage.getItem("groupNameLS")))
-if (JSON.parse(localStorage.getItem("groupNameLS")) == null) {
-    console.log("mamaia")
-    localStorage.setItem("groupNameLS", JSON.stringify("vakidavra"))
-}
-console.log(JSON.parse(localStorage.getItem("groupNameLS")))
+// console.log(JSON.parse(localStorage.getItem("groupNameLS")))
+// if (JSON.parse(localStorage.getItem("groupNameLS")) == null) {
+//     console.log("mamaia")
+//     localStorage.setItem("groupNameLS", JSON.stringify("vakidavra"))
+// }
+// console.log(JSON.parse(localStorage.getItem("groupNameLS")))
+
 
 let isUserLoggedInGroup = JSON.parse( localStorage.getItem("isUserLogged"))
 let groupNameLS = JSON.parse(localStorage.getItem("groupNameLS"))
@@ -162,7 +163,6 @@ document.documentElement.style.setProperty("--category-multiply", "4")
 // })
 
 addButtonEl.addEventListener("click", function() {
-    addButtonEl.style.color = "red"
     if (isUserLoggedInGroup == true) {
         let inputValue = inputFieldEl.value
         push(itemsListInDB, inputValue)

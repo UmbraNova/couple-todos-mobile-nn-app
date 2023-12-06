@@ -51,14 +51,12 @@ onValue(groupsInDB, function(snapshot) {
 function addGroupInDB() {
     if (checkGroupExistsInDB(groupNameFieldEl.value)) {
         loginErrorInfoEl.textContent = "Group already exists"
-    } else {
-        if (testNameAndPassword()) {
+    } else if (testNameAndPassword()) {
             push(groupsInDB, [groupNameFieldEl.value, passwordFieldEl.value])
             enterGroup()
-        } else {
-            loginErrorInfoEl.innerHTML = "Empty name and password, length must be 4 characters or more"
-        }
-    }   
+    } else {
+        loginErrorInfoEl.innerHTML = "Empty name and password, length must be 4 characters or more"
+    }
 }
 
 function testNameAndPassword() {
@@ -191,16 +189,7 @@ onValue(itemsListInDB, function(snapshot) {
     }
 })
 
-let fixEl = document.getElementById("fix")
-fixEl.addEventListener("click", fix)
-function fix() {
-    
-    localStorage.setItem("isUserLogged", JSON.stringify(false))
-    localStorage.setItem("groupNameLS", JSON.stringify("0"))
-    groupNameLS = "0"
-    groupListEl.innerHTML = "FIX!!!"
-    
-}
+
 
 function clearGroupListEl() {
     groupListEl.innerHTML = ""

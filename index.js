@@ -29,7 +29,7 @@ let loginErrorInfoEl = document.getElementById("login-error-info-el")
 
 console.log(JSON.parse(localStorage.getItem("groupNameLS")))
 if (JSON.parse(localStorage.getItem("groupNameLS")) == null) {
-    localStorage.setItem("groupNameLS", JSON.stringify(""))
+    localStorage.setItem("groupNameLS", JSON.stringify(``))
 }
 console.log(JSON.parse(localStorage.getItem("groupNameLS")))
 

@@ -66,7 +66,6 @@ function testNameAndPassword() {
 }
 
 function enterGroup() {
-    addButtonEl.style.color = "red"
     let groupNameValue = groupNameFieldEl.value
     if (checkGroupExistsInDB(groupNameValue)) {
         location.reload()
@@ -159,6 +158,7 @@ document.documentElement.style.setProperty("--category-multiply", "4")
 // =========================================== Experimental
 
 addButtonEl.addEventListener("click", function() {
+    addButtonEl.style.color = "red"
     if (isUserLoggedInGroup == true) {
         let inputValue = inputFieldEl.value
         push(itemsListInDB, inputValue)

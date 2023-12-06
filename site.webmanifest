@@ -1,7 +1,8 @@
 {
     "name": "CoupleToDos",
     "short_name": "CoupleToDos",
-    "start_url": "/",
+    "start_url": ".",
+    "description": "To do list for multiple groups",
     "icons":
         [
             {"src":"assets/android-chrome-192x192.png","sizes":"192x192","type":"image/png"},

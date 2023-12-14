@@ -69,10 +69,10 @@ function testNameAndPassword() {
         return true
     }
 }
-let groupNameValue = groupNameFieldEl.value.trim()
 let passwordValue = passwordFieldEl.value.trim()
 
 function enterGroup() {
+    let groupNameValue = groupNameFieldEl.value.trim()
     if (checkGroupExistsInDB(groupNameValue)) {
         changeVisualAfterLogIn(groupNameValue)
         logInUserLS(groupNameValue)

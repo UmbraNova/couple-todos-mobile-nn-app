@@ -69,7 +69,6 @@ function testNameAndPassword() {
         return true
     }
 }
-let passwordValue = passwordFieldEl.value.trim()
 
 function enterGroup() {
     let groupNameValue = groupNameFieldEl.value.trim()
@@ -147,21 +146,7 @@ function changeBGColorOnMobile(changeElBG) {
 }
 
 // Change the height of category baset on elements in it
-document.documentElement.style.setProperty("--category-multiply", "4")
-
-// addButtonEl.style.color = "blue"
-
-// addButtonEl.addEventListener("click", function() {
-//     addButtonEl.style.color = "red"
-//     why.style.backgroundColor = "aqua"
-//     why.style.color = "lime"
-// })
-
-// let why = document.getElementById("why")
-// why.addEventListener("click", function() {
-//     why.style.backgroundColor = "red"
-//     why.style.color = "yellow"
-// })
+document.documentElement.style.setProperty("--group-multiply", "1")
 
 addButtonEl.addEventListener("click", function() {
     if (isUserLoggedInGroup == true) {

@@ -73,10 +73,10 @@ function testNameAndPassword() {
 function enterGroup() {
     let groupNameValue = groupNameFieldEl.value
     if (checkGroupExistsInDB(groupNameValue)) {
-        location.reload()
         changeVisualAfterLogIn(groupNameValue)
         logInUserLS(groupNameValue)
         closeLoginWindow()
+        location.reload()
     } else {
         loginErrorInfoEl.textContent = "Group doesn't exist or password is incorect"
     }

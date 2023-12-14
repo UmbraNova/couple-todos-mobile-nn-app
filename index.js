@@ -65,13 +65,14 @@ function addGroupInDB() {
 }
 
 function testNameAndPassword() {
-    // if (groupNameFieldEl.value.length > 3 && /\s/.test(groupNameFieldEl.value) && passwordFieldEl.value.length > 3 && /\s/.test(passwordFieldEl.value)) {
+    if (groupNameFieldEl.value.length > 3 && /\s/.test(groupNameFieldEl.value) && passwordFieldEl.value.length > 3 && /\s/.test(passwordFieldEl.value)) {
         return true
-    // }
+    }
 }
+let groupNameValue = groupNameFieldEl.value.trim()
+let passwordValue = passwordFieldEl.value.trim()
 
 function enterGroup() {
-    let groupNameValue = groupNameFieldEl.value
     if (checkGroupExistsInDB(groupNameValue)) {
         changeVisualAfterLogIn(groupNameValue)
         logInUserLS(groupNameValue)

@@ -174,7 +174,6 @@ addButtonEl.addEventListener("click", function() {
         localStorage.setItem("isUserLogged", JSON.stringify(false))
         localStorage.setItem("groupNameLS", JSON.stringify("0"))
         groupNameLS = "0"
-        location.reload()
         groupListEl.innerHTML = "You need to enter a group..."
     }
 })

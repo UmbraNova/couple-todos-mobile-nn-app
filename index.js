@@ -65,9 +65,9 @@ function addGroupInDB() {
 }
 
 function testNameAndPassword() {
-    if (groupNameFieldEl.value.length > 3 && /\s/.test(groupNameFieldEl.value) && passwordFieldEl.value.length > 3 && /\s/.test(passwordFieldEl.value)) {
+    // if (groupNameFieldEl.value.length > 3 && /\s/.test(groupNameFieldEl.value) && passwordFieldEl.value.length > 3 && /\s/.test(passwordFieldEl.value)) {
         return true
-    }
+    // }
 }
 
 function enterGroup() {

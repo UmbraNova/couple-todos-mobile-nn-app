@@ -126,6 +126,11 @@ span::after {
     position: absolute;
 }
 
+label > span {
+    /* temp color for developing */
+    background-color: grey !important;
+}
+
 #touch:checked + .dropdown-menu {height: var(--total-height);}
 
 /* dropdown END */

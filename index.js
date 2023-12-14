@@ -29,8 +29,8 @@ let loginErrorInfoEl = document.getElementById("login-error-info-el")
 
 
 // ==================
-if (JSON.parse(localStorage.getItem("groupNameLS")) === "") {
-    localStorage.setItem("groupNameLS", JSON.stringify("vakidavra"))
+if (JSON.parse(localStorage.getItem("groupNameLS")) === null) {
+    localStorage.setItem("groupNameLS", JSON.stringify("0"))
 }
 // ==================
 

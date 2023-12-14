@@ -1,7 +1,6 @@
 {
     "name": "CoupleToDos",
     "short_name": "CoupleToDos",
-    "start_url": ".",
     "description": "To do list for multiple groups",
     "icons":
         [

@@ -64,9 +64,9 @@ function addGroupInDB() {
 }
 
 function testNameAndPassword() {
-    // if (groupNameFieldEl.value.length > 3 && /\S/.test(groupNameFieldEl.value) && passwordFieldEl.value.length > 3 && /\S/.test(passwordFieldEl.value)) {
+    if (groupNameFieldEl.value.length > 3 && /\s/.test(groupNameFieldEl.value) && passwordFieldEl.value.length > 3 && /\s/.test(passwordFieldEl.value)) {
         return true
-    // }
+    }
 }
 
 function enterGroup() {
@@ -176,7 +176,6 @@ addButtonEl.addEventListener("click", function() {
         localStorage.setItem("groupNameLS", JSON.stringify("0"))
         groupNameLS = "0"
         location.reload()
-        groupListEl.innerHTML = "No items... yet"
     }
 })
 

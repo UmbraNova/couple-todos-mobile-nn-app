@@ -24,26 +24,114 @@ const groupExitButtonEl = document.getElementById("exit-group-button")
 
 const openLoginWindow = document.getElementById("open-login-window-btn")
 const loginWindow = document.getElementById("login-window")
-
 let loginErrorInfoEl = document.getElementById("login-error-info-el")
+const userNameEl = document.getElementById("user-name")
+const peopleInGroupButtonEl = document.getElementById("people-in-group")
 
+let groupNameLS = JSON.parse(localStorage.getItem("groupNameLS"))
 
-// ==================
 if (JSON.parse(localStorage.getItem("groupNameLS")) === null) {
     localStorage.setItem("groupNameLS", JSON.stringify("0"))
 }
-// ==================
+
+let isUserLoggedInGroup = JSON.parse(localStorage.getItem("isUserLogged"))
+userNameEl.value = JSON.parse(localStorage.getItem("userNameLS"))
 
 
-let isUserLoggedInGroup = JSON.parse( localStorage.getItem("isUserLogged"))
-let groupNameLS = JSON.parse(localStorage.getItem("groupNameLS"))
+const usersInGroupEl = document.getElementById('dropdown-menu')
+
+let usersInGroubOnlineInDB = ""
+let userIDinDB = ""
+
+
+let usersInGroupDB = ref(database, `${groupNameLS}0NkvAEtqN5`)
+
+function removeOnlineUserFromGroupDB() {
+    let exactUserLocationInDB = ref(database, `${groupNameLS}0NkvAEtqN5/${userIDinDB}`)
+    remove(exactUserLocationInDB)
+}
+
+function addUserOnlineInGroupDB() {
+    if (userNameEl.value) {
+        console.log("why - ", groupNameLS, "lol - ", groupNameFieldEl.value)
+        usersInGroupDB = ref(database, `${groupNameLS}0NkvAEtqN5`)
+        push(usersInGroupDB, userNameEl.value)
+    }
+}
+
+
+onValue(usersInGroupDB, function(snapshot) {
+    if (snapshot.exists()) {
+        usersInGroubOnlineInDB = Object.entries(snapshot.val())
+        let allUsers = []
+        for (let i = 0; i < usersInGroubOnlineInDB.length; i++) {
+            if (usersInGroubOnlineInDB[i][1] == userNameEl.value) {
+                // console.log(usersInGroubOnlineInDB[i])
+                userIDinDB = usersInGroubOnlineInDB[i][0]
+            }
+            allUsers.push(usersInGroubOnlineInDB[i][1])
+        }
+        if (isUserLoggedInGroup) {
+            changeBgColorAndBack(peopleInGroupButtonEl, "wheat", "#005B41")
+            renderUserOnline(allUsers)
+        }
+    }
+})
+
+function renderUserOnline(users) {
+    let totalUsersOnline = ""
+    let usersCount = users.length
+    for (let user of users) {
+        totalUsersOnline += `<li><button disabled>${user}</button></li>`
+    }
+    usersInGroupEl.innerHTML = totalUsersOnline
+    
+    // Change the height of category baset on elements in it
+    document.documentElement.style.setProperty("--group-multiply", usersCount)
+}
+
+function changeBgColorAndBack(elem, color1, color2) {
+    elem.style.backgroundColor = color1
+    setTimeout(function() {
+        elem.style.backgroundColor = color2
+    }, 150)
+}
+
+// ====================================================================================
+// ====================================================================================
+// ====================================================================================
+// ====================================================================================
+
+
+
 const itemsListInDB = ref(database, groupNameLS)
 
 enterGroupButtonEl.addEventListener("click", enterGroup)
 newGroupButtonEl.addEventListener("click", addGroupInDB)
 groupExitButtonEl.addEventListener("click", exitGroupInLS)
 
-let groupArrayDB = [] 
+let groupArrayDB = []
+
+userNameEl.addEventListener("change", function() {
+    setUserNameLS(userNameEl.value)
+    const userNameLS = JSON.parse(localStorage.getItem("userNameLS"))
+    userNameEl.value = userNameLS
+})
+
+openLoginWindow.addEventListener("click", function(event) {
+    event.preventDefault()
+    if (userNameEl.value) {
+        setUserNameLS(userNameEl.value)
+        loginWindow.style.display = "block"
+    } else {
+        // userNameBgColorRed()
+        changeBgColorAndBack(userNameEl, "#F97272", "#DCE1EB")
+    }
+})
+        
+function setUserNameLS(name="0") {
+    localStorage.setItem("userNameLS", JSON.stringify(name))
+}
 
 onValue(groupsInDB, function(snapshot) {
     if (snapshot.exists()) {
@@ -56,16 +144,16 @@ onValue(groupsInDB, function(snapshot) {
 function addGroupInDB() {
     if (checkGroupExistsInDB(groupNameFieldEl.value)) {
         loginErrorInfoEl.textContent = "Group already exists"
-    } else if (testNameAndPassword()) {
-            push(groupsInDB, [groupNameFieldEl.value, passwordFieldEl.value])
-            enterGroup()
+    } else if (testNameAndPassword(groupNameFieldEl.value, passwordFieldEl.value)) {
+        push(groupsInDB, [groupNameFieldEl.value, passwordFieldEl.value])
+        enterGroup()
     } else {
-        loginErrorInfoEl.innerHTML = "Empty name and password, length must be 4 characters or more"
+        loginErrorInfoEl.innerHTML = "Group name length must be between 4 characters and 14"
     }
 }
 
-function testNameAndPassword() {
-    if (groupNameFieldEl.value.length > 3 && /\s/.test(groupNameFieldEl.value) && passwordFieldEl.value.length > 3 && /\s/.test(passwordFieldEl.value)) {
+function testNameAndPassword(group, password) {
+    if (15 > group.length && group.length > 3 && !(/\s/).test(group) && password.length > 3 && !(/\s/).test(password)) {
         return true
     }
 }
@@ -76,6 +164,7 @@ function enterGroup() {
         changeVisualAfterLogIn(groupNameValue)
         logInUserLS(groupNameValue)
         closeLoginWindow()
+        addUserOnlineInGroupDB()
         location.reload()
     } else {
         loginErrorInfoEl.textContent = "Group doesn't exist or password is incorect"
@@ -117,15 +206,12 @@ function exitGroupInLS() {
     localStorage.setItem("isUserLogged", JSON.stringify(false))
     localStorage.setItem("groupNameLS", JSON.stringify("0"))
     location.reload()
-    groupNameLS = "0"
     groupListEl.innerHTML = "No items... yet"
     changeVisualEfterExit()
+    removeOnlineUserFromGroupDB()
+    groupNameLS = "0"
 }
 
-openLoginWindow.addEventListener("click", function(event) {
-    event.preventDefault()
-    loginWindow.style.display = "block"
-})
 
 function closeLoginWindow() {
     loginWindow.style.display = "none"
@@ -133,27 +219,25 @@ function closeLoginWindow() {
 }
 
 if (isUserLoggedInGroup == true) {
+    userNameEl.setAttribute("readonly", "")
     changeVisualAfterLogIn(groupNameLS)
+} else {
+    userNameEl.removeAttribute("readonly", "")
 }
-
-// Change the background color on mobile devices
-function changeBGColorOnMobile(changeElBG) {
-    changeElBG.style.backgroundColor = "#232D3F"  // green | --main-bg-color
-    setTimeout(changeBack, 200, changeElBG)
-    function changeBack(changeElBG) {
-        changeElBG.style.backgroundColor = "#005B41"  // dark blue | --main-bg-hover-color
-    }
-}
-
-// Change the height of category baset on elements in it
-document.documentElement.style.setProperty("--group-multiply", "1")
 
 addButtonEl.addEventListener("click", function() {
-    if (isUserLoggedInGroup == true) {
+    if (isUserLoggedInGroup == true && userNameEl.value && inputFieldEl.value) {
         let inputValue = inputFieldEl.value
         push(itemsListInDB, inputValue)
-        changeBGColorOnMobile(addButtonEl)
+        // changeBgColorOnMobile(addButtonEl)
+        changeBgColorAndBack(addButtonEl, "#232D3F", "#005B41")
         clearInputFieldEl()
+    } else if (!userNameEl.value) {
+        // userNameBgColorRed()
+        changeBgColorAndBack(userNameEl, "#F97272", "#DCE1EB")
+    } else if (!inputFieldEl.value) {
+        // inputItemBgColorRed()
+        changeBgColorAndBack(userNameEl, "#F97272", "#DCE1EB")
     } else {
         // if the input is empty and user is logged
         // this is to set everything to default in case of error in the data.
@@ -171,8 +255,6 @@ onValue(itemsListInDB, function(snapshot) {
         
         for (let i = 0; i < itemsArray.length; i++) {
             let currentItem = itemsArray[i]
-            // let currentItemID = currentItem[0]
-            // let currentItemValue = currentItem[1]
             appendToGroupListEl(currentItem)
         }    
     } else {

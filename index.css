@@ -28,7 +28,7 @@ html, body {
 }
 
 #login-container {
-    margin-top: 20px;
+    margin-top: 12px;
 }
 
 
@@ -46,6 +46,9 @@ input {
     font-size: 20px;
     text-align: center;
     font-family: 'Rubik', sans-serif;
+}
+
+input[id="input-field"] {
     margin-bottom: 10px;
 }
 
@@ -101,7 +104,9 @@ nav li {
 
 li > button {width: 100%;}
 
-span {display: block;}
+#people-in-group {
+    display: block;
+}
 
 span::after {
     float: right;
@@ -125,6 +130,7 @@ span::after {
     position: absolute;
 }
 
+
 #on-touch:checked + #dropdown-menu {height: var(--total-height);}
 /* dropdown END */
 
@@ -141,7 +147,7 @@ span::after {
     position: fixed;
     padding: 30px;
     text-align: center;
-    z-index: 10;
+    z-index: 100;
   }
 
 #login-window-content {
@@ -150,4 +156,42 @@ span::after {
     margin: auto;
     width: 300px;
 }
+
+#login-window-content > input {
+    margin-bottom: 10px;
+}
 /* login END */
+
+.user-login-container {
+    display: flex;
+    align-items: center;
+}
+
+#login-container > button {
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 12px;
+    max-height: 54px;
+    min-width: 160px;
+}
+
+#user-name {
+    min-width: 80px;
+    width: 50%;
+    border-radius: 8px 0 0 8px;
+}
+
+.app-image {
+    animation: dancing 3s infinite ease-in-out;
+}
+
+@keyframes dancing {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}

@@ -15,46 +15,51 @@
     </head>
     <body>
         <main>
-            <!-- login container START -->
-            <div id="login-container">
-                <button id="open-login-window-btn">Login group!</button>
-                <div id="login-window">
-                    <div id="login-window-content">
-                        <p>Enter a group name and password</p>
-                        <input id="group-name-field" placeholder="group name..." type="text" required>
-                        <input id="password-field" placeholder="password..." type="password" required>
-                        <button id="enter-group-button">Enter Group</button>
-                        <button id="new-group-button">Add New Group</button>
-                        <button id="exit-group-button">Exit</button>
-                        <p id="login-error-info-el"></p>
-                    </div>
-                </div>
-            </div>
-            <!-- login container END -->
-
             <!-- main app container START -->
             <div class="container">
-                <!-- <input type="text">  for future user name -->
-                <img src="assets/cloud.png">
+                <div class="user-login-container">
+                    <input id="user-name" type="text" placeholder="Your name...">
+
+                    <!-- enter group container START -->
+                    <div id="login-container">
+                        <button id="open-login-window-btn">Login group</button>
+                        <div id="login-window">
+                            <div id="login-window-content">
+                                <p>Enter a group name and password</p>
+                                <input id="group-name-field" placeholder="group name..." type="text" required>
+                                <input id="password-field" placeholder="password..." type="password" required>
+                                <button id="enter-group-button">Enter Group</button>
+                                <button id="new-group-button">Add New Group</button>
+                                <button id="exit-group-button">Exit</button>
+                                <p id="login-error-info-el"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- enter group container END -->
+                </div>
+                <img class="app-image" src="assets/cloud.png">
                 <input type="text" id="input-field" placeholder="Example...">
                 <button id="add-button">Add to List</button>
                 
-                <!-- ========================== -->
                 <nav>
-                    <label for="on-touch"><span>People in group</span></label>
+                    <label for="on-touch"><span id="people-in-group">People in group</span></label>
                     <input type="checkbox" id="on-touch">
                     <ul id="dropdown-menu">
                         <!-- <li><button>To Do List</button></li>  -->
                         <!-- <li><button>Shopping List</button></li> -->
                         <!-- <li><button>Work Projects</button></li> -->
-                        <li><button>Carbs/Fats/Protein</button></li>
+                        <!-- <li><button>Carbs/Fats/Protein</button></li> -->
                     </ul>
                 </nav>
-                <!-- ========================== -->                
+
+                <!-- <button id="add-user">Add User</button> -->
+
                 <ul id="group-list">
                 </ul>
             </div>
             <!-- main app container END -->
+
+
 
             <!-- chat container START -->
             <!-- <div class="chat-container">

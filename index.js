@@ -43,18 +43,16 @@ const usersInGroupEl = document.getElementById('dropdown-menu')
 let usersInGroubOnlineInDB = ""
 let userIDinDB = ""
 
-
-let usersInGroupDB = ref(database, `${groupNameLS}0NkvAEtqN5`)
+let usersInGroupDB = ref(database, `${groupNameLS}NkvAEtqN5`)
 
 function removeOnlineUserFromGroupDB() {
-    let exactUserLocationInDB = ref(database, `${groupNameLS}0NkvAEtqN5/${userIDinDB}`)
+    let exactUserLocationInDB = ref(database, `${groupNameLS}NkvAEtqN5/${userIDinDB}`)
     remove(exactUserLocationInDB)
 }
 
-function addUserOnlineInGroupDB() {
+function addUserOnlineInGroupDB(gName) {
     if (userNameEl.value) {
-        console.log("why - ", groupNameLS, "lol - ", groupNameFieldEl.value)
-        usersInGroupDB = ref(database, `${groupNameLS}0NkvAEtqN5`)
+        usersInGroupDB = ref(database, `${gName}NkvAEtqN5`)
         push(usersInGroupDB, userNameEl.value)
     }
 }
@@ -77,6 +75,7 @@ onValue(usersInGroupDB, function(snapshot) {
         }
     }
 })
+
 
 function renderUserOnline(users) {
     let totalUsersOnline = ""
@@ -164,7 +163,7 @@ function enterGroup() {
         changeVisualAfterLogIn(groupNameValue)
         logInUserLS(groupNameValue)
         closeLoginWindow()
-        addUserOnlineInGroupDB()
+        addUserOnlineInGroupDB(groupNameValue)
         location.reload()
     } else {
         loginErrorInfoEl.textContent = "Group doesn't exist or password is incorect"

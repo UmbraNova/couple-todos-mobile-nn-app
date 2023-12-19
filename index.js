@@ -45,8 +45,8 @@ let userIDinDB = ""
 
 let usersInGroupDB = ref(database, `${groupNameLS}NkvAEtqN5`)
 
-function removeOnlineUserFromGroupDB() {
-    let exactUserLocationInDB = ref(database, `${groupNameLS}NkvAEtqN5/${userIDinDB}`)
+function removeOnlineUserFromGroupDB(gName) {
+    let exactUserLocationInDB = ref(database, `${gName}NkvAEtqN5/${userIDinDB}`)
     remove(exactUserLocationInDB)
 }
 
@@ -56,7 +56,6 @@ function addUserOnlineInGroupDB(gName) {
         push(usersInGroupDB, userNameEl.value)
     }
 }
-
 
 onValue(usersInGroupDB, function(snapshot) {
     if (snapshot.exists()) {
@@ -96,12 +95,6 @@ function changeBgColorAndBack(elem, color1, color2) {
     }, 150)
 }
 
-// ====================================================================================
-// ====================================================================================
-// ====================================================================================
-// ====================================================================================
-
-
 
 const itemsListInDB = ref(database, groupNameLS)
 
@@ -123,7 +116,6 @@ openLoginWindow.addEventListener("click", function(event) {
         setUserNameLS(userNameEl.value)
         loginWindow.style.display = "block"
     } else {
-        // userNameBgColorRed()
         changeBgColorAndBack(userNameEl, "#F97272", "#DCE1EB")
     }
 })
@@ -160,8 +152,14 @@ function testNameAndPassword(group, password) {
 function enterGroup() {
     let groupNameValue = groupNameFieldEl.value.trim()
     if (checkGroupExistsInDB(groupNameValue)) {
+        // no password check!!!
+        // no password check!!!
+        // no password check!!!
+        // add password check!!!
+        // add password check!!!
+        // add password check!!!
         changeVisualAfterLogIn(groupNameValue)
-        logInUserLS(groupNameValue)
+        logInUserAndGroupLS(groupNameValue)
         closeLoginWindow()
         addUserOnlineInGroupDB(groupNameValue)
         location.reload()
@@ -181,7 +179,7 @@ function checkGroupExistsInDB(groupName) {
     return groupExistsInDB
 }
 
-function logInUserLS(groupName) {
+function logInUserAndGroupLS(groupName) {
     localStorage.setItem("isUserLogged", JSON.stringify(true))
     localStorage.setItem("groupNameLS", JSON.stringify(groupName))
 }
@@ -207,7 +205,7 @@ function exitGroupInLS() {
     location.reload()
     groupListEl.innerHTML = "No items... yet"
     changeVisualEfterExit()
-    removeOnlineUserFromGroupDB()
+    removeOnlineUserFromGroupDB(groupNameLS)
     groupNameLS = "0"
 }
 
@@ -245,7 +243,7 @@ addButtonEl.addEventListener("click", function() {
         groupNameLS = "0"
         groupListEl.innerHTML = "You need to enter a group..."
     }
-})
+    })
 
 onValue(itemsListInDB, function(snapshot) {
     if (snapshot.exists() && isUserLoggedInGroup == true) {

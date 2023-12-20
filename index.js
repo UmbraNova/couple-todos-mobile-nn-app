@@ -47,7 +47,7 @@ let usersInGroupDB = ref(database, `${groupNameLS}NkvAEtqN5`)
 
 const emergencyExitEl = document.getElementById("emergency-btn")
 emergencyExitEl.addEventListener("click", function() {
-    isUserLoggedInGroup = false
+    exitGroupInLS()
 })
 
 function removeOnlineUserFromGroupDB(gName) {

@@ -54,7 +54,7 @@ let isUserLoggedInGroup = JSON.parse(localStorage.getItem("isUserLogged"))
 userNameEl.value = JSON.parse(localStorage.getItem("userNameLS"))
 
 
-const usersInGroupEl = document.getElementById('dropdown-menu')
+const usersInGroupEl = document.getElementById('people-dropdown-menu')
 
 let usersInGroubOnlineInDB = ""
 let userIDinDB = ""
@@ -298,6 +298,14 @@ function appendToGroupListEl(item) {
     let itemValue = item[1]
     let newEl = document.createElement("li")
     newEl.textContent = itemValue
+    // let test = `
+    // <select>
+    //     <option value="">name1</option>
+    //     <option value="">name2</option>
+    //     <option value="">name3</option>
+    //     <option value="">name4</option>
+    // </select>
+    // `
     
     newEl.addEventListener("click", function() {
         let exactItemLocationInDB = ref(database, `${groupNameLS}/${itemID}`) 

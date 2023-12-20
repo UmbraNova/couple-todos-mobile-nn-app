@@ -45,6 +45,11 @@ let userIDinDB = ""
 
 let usersInGroupDB = ref(database, `${groupNameLS}NkvAEtqN5`)
 
+const emergencyExitEl = document.getElementById("emergency-btn")
+emergencyExitEl.addEventListener("click", function() {
+    isUserLoggedInGroup = false
+})
+
 function removeOnlineUserFromGroupDB(gName) {
     let exactUserLocationInDB = ref(database, `${gName}NkvAEtqN5/${userIDinDB}`)
     remove(exactUserLocationInDB)

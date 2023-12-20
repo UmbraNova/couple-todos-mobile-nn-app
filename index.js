@@ -8,6 +8,22 @@ const appSettings = {
 // DB = database
 // LS = localstorage
 
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+// TODO: live chat with feed (objects?)
+// TODO: ability to select/color/icon an item from list baset on your account
+// TODO: fix the password required, when entering group
+
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
 const app = initializeApp(appSettings)
 const database = getDatabase(app)
 
@@ -45,10 +61,10 @@ let userIDinDB = ""
 
 let usersInGroupDB = ref(database, `${groupNameLS}NkvAEtqN5`)
 
-const emergencyExitEl = document.getElementById("emergency-btn")
-emergencyExitEl.addEventListener("click", function() {
-    exitGroupInLS()
-})
+// const emergencyExitEl = document.getElementById("emergency-btn")
+// emergencyExitEl.addEventListener("click", function() {
+//     exitGroupInLS()
+// })
 
 function removeOnlineUserFromGroupDB(gName) {
     let exactUserLocationInDB = ref(database, `${gName}NkvAEtqN5/${userIDinDB}`)
@@ -260,9 +276,11 @@ onValue(itemsListInDB, function(snapshot) {
             appendToGroupListEl(currentItem)
         }    
     } else {
-        localStorage.setItem("isUserLogged", JSON.stringify(false))
-        localStorage.setItem("groupNameLS", JSON.stringify("0"))
-        groupNameLS = "0"
+        // localStorage.setItem("isUserLogged", JSON.stringify(false))
+        // localStorage.setItem("groupNameLS", JSON.stringify("0"))
+        // groupNameLS = "0" 
+        // DONE: fixed groupname set to 0 when 0 items in list, automatic loggout ex:  isUserLogged = false | groupNameLS = 0
+
         groupListEl.innerHTML = "No items... yet"
     }
 })

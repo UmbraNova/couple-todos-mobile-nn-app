@@ -43,8 +43,8 @@ const loginWindow = document.getElementById("login-window")
 let loginErrorInfoEl = document.getElementById("login-error-info-el")
 const userNameEl = document.getElementById("user-name")
 const peopleInGroupButtonEl = document.getElementById("people-in-group")
-
 let groupNameLS = JSON.parse(localStorage.getItem("groupNameLS"))
+const removeBtn = document.getElementById("remove-btn")
 
 if (JSON.parse(localStorage.getItem("groupNameLS")) === null) {
     localStorage.setItem("groupNameLS", JSON.stringify("0"))
@@ -55,18 +55,15 @@ userNameEl.value = JSON.parse(localStorage.getItem("userNameLS"))
 
 
 const usersInGroupEl = document.getElementById('people-dropdown-menu')
-
 let usersInGroubOnlineInDB = ""
 let userIDinDB = ""
-
 let usersInGroupDB = ref(database, `${groupNameLS}NkvAEtqN5`)
-
 const itemsListInDB = ref(database, groupNameLS)
+let groupArrayDB = []
 
 enterGroupButtonEl.addEventListener("click", enterGroup)
 newGroupButtonEl.addEventListener("click", addGroupInDB)
 groupExitButtonEl.addEventListener("click", exitGroupInLS)
-
 
 window.addEventListener("keypress", function(keyPressed) {
     if (keyPressed.key == "Enter") {
@@ -75,14 +72,13 @@ window.addEventListener("keypress", function(keyPressed) {
 })
 addButtonEl.addEventListener("click", addItemToList)
 
-let groupArrayDB = []
 
 // const emergencyExitEl = document.getElementById("emergency-btn")
 // emergencyExitEl.addEventListener("click", function() {
-//     exitGroupInLS()
-// })
-
-function removeOnlineUserFromGroupDB(gName) {
+    //     exitGroupInLS()
+    // })
+    
+    function removeOnlineUserFromGroupDB(gName) {
     let exactUserLocationInDB = ref(database, `${gName}NkvAEtqN5/${userIDinDB}`)
     remove(exactUserLocationInDB)
 }
@@ -253,11 +249,15 @@ if (isUserLoggedInGroup == true) {
 
 
 
+
 function addItemToList() {
     if (inputFieldEl.value.length > 27 || !inputFieldEl.value) {
         changeBgColorAndBack(inputFieldEl, "#F97272", "#DCE1EB")
     } else if (isUserLoggedInGroup == true && userNameEl.value && inputFieldEl.value) {
-        let inputValue = inputFieldEl.value
+        //  TODO: aici de adaugat item obiectele
+        //  TODO: aici de adaugat item obiectele
+        //  TODO: aici de adaugat item obiectele
+        let inputValue = {name: inputFieldEl.value, color: "#FFFDF8", count: 0}
         push(itemsListInDB, inputValue)
         changeBgColorAndBack(addButtonEl, "#232D3F", "#005B41")
         clearInputFieldEl()
@@ -271,6 +271,14 @@ function addItemToList() {
         groupListEl.innerHTML = "You need to enter a group..."
         location.reload()
     }
+}
+
+function clearGroupListEl() {
+    groupListEl.innerHTML = ""
+}
+
+function clearInputFieldEl() {
+    inputFieldEl.value = ""
 }
 
 onValue(itemsListInDB, function(snapshot) {
@@ -292,31 +300,57 @@ onValue(itemsListInDB, function(snapshot) {
     }
 })
 
-function clearGroupListEl() {
-    groupListEl.innerHTML = ""
-}
 
-function clearInputFieldEl() {
-    inputFieldEl.value = ""
-}
+
+// )))))))))))))))))))))))))))))))))))))))))))))))))))))
+// )))))))))))))))))))))))))))))))))))))))))))))))))))))
+// )))))))))))))))))))))))))))))))))))))))))))))))))))))
+// let objVar = {name: "placeholder", color: "#FFFDF8"}
+
+// let objVar = {name: "placeholder", color: ["blue", "red", "orange"]}
+
+// let objTest = document.getElementById("object-test")
+// objTest.addEventListener("click", function() {
+//     push(itemsListInDB, objVar)
+// })
+// )))))))))))))))))))))))))))))))))))))))))))))))))))))
+// )))))))))))))))))))))))))))))))))))))))))))))))))))))
+// )))))))))))))))))))))))))))))))))))))))))))))))))))))
+
+let count = 0
+const colors = ["green", "orange", "red"]
 
 function appendToGroupListEl(item) {
     let itemID = item[0]
     let itemValue = item[1]
     let newEl = document.createElement("li")
-    newEl.textContent = itemValue
-    // let test = `
-    // <select>
-    //     <option value="">name1</option>
-    //     <option value="">name2</option>
-    //     <option value="">name3</option>
-    //     <option value="">name4</option>
-    // </select>
-    // `
-    
+    if (typeof itemValue === 'string' || itemValue instanceof String) {
+        newEl.textContent = itemValue
+    } else {
+        newEl.textContent = itemValue.name
+        newEl.style.backgroundColor = itemValue.color
+    }
+   
     newEl.addEventListener("click", function() {
-        let exactItemLocationInDB = ref(database, `${groupNameLS}/${itemID}`) 
-        remove(exactItemLocationInDB)
+        if (removeBtn.checked) {
+            let exactItemLocationInDB = ref(database, `${groupNameLS}/${itemID}`) 
+            remove(exactItemLocationInDB)
+        } else {
+            let exactItemLocationInDB = ref(database, `${groupNameLS}/${itemID}`) 
+            remove(exactItemLocationInDB)
+            push(itemsListInDB, {name: itemValue.name, color: colors[count]})
+            count += 1
+            // if (count > colors.length) {
+            if (count > 2) {
+                count = 0
+            }
+        }
     })
-    groupListEl.append(newEl)
+
+
+    renderItems(newEl)
+}
+
+function renderItems(elem) {
+    groupListEl.append(elem)
 }

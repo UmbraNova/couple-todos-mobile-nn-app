@@ -201,16 +201,19 @@ span::after {
 }
 
 .buttons-container > label {
-    border-radius: 0 8px 8px 0;
+    border-radius: 8px 0 0 8px;
     height: 24px;
-    width: 51%;
+    width: 50%;
 }
 
 .buttons-container > label > input {
     vertical-align: middle;
+    accent-color: var(--main-bg-hover-color);
+    width: 17px;
+    height: 17px;
 }
 
 .buttons-container > button {
-    border-radius: 8px 0 0 8px;
-    min-width: 140px;
+    border-radius: 0 8px 8px 0;
+    min-width: 160px;
 }

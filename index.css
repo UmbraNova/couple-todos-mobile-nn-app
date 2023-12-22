@@ -52,7 +52,7 @@ input[id="input-field"] {
     margin-bottom: 10px;
 }
 
-button, span {
+button, span, .buttons-container > label {
     color: #FDFDFD;
     background-color: var(--main-bg-color);
     border: 0;
@@ -198,23 +198,19 @@ span::after {
 
 .buttons-container {
     display: flex;
-    justify-content: space-between;
-    /* background-color: coral; */
 }
 
 .buttons-container > label {
-    color: #FDFDFD;
-    background-color: var(--main-bg-color);
-    border: 0;
-    padding: 15px;
-    border-radius: 8px;
-    font-size: 20px;
-    text-align: center;
-    font-family: 'Rubik', sans-serif;
+    border-radius: 0 8px 8px 0;
     height: 24px;
+    width: 51%;
 }
 
 .buttons-container > label > input {
-    margin: 0;
     vertical-align: middle;
+}
+
+.buttons-container > button {
+    border-radius: 8px 0 0 8px;
+    min-width: 140px;
 }

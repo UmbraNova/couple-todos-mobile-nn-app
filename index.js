@@ -61,10 +61,26 @@ let userIDinDB = ""
 
 let usersInGroupDB = ref(database, `${groupNameLS}NkvAEtqN5`)
 
-const emergencyExitEl = document.getElementById("emergency-btn")
-emergencyExitEl.addEventListener("click", function() {
-    exitGroupInLS()
+const itemsListInDB = ref(database, groupNameLS)
+
+enterGroupButtonEl.addEventListener("click", enterGroup)
+newGroupButtonEl.addEventListener("click", addGroupInDB)
+groupExitButtonEl.addEventListener("click", exitGroupInLS)
+
+
+window.addEventListener("keypress", function(keyPressed) {
+    if (keyPressed.key == "Enter") {
+        addItemToList()
+    }
 })
+addButtonEl.addEventListener("click", addItemToList)
+
+let groupArrayDB = []
+
+// const emergencyExitEl = document.getElementById("emergency-btn")
+// emergencyExitEl.addEventListener("click", function() {
+//     exitGroupInLS()
+// })
 
 function removeOnlineUserFromGroupDB(gName) {
     let exactUserLocationInDB = ref(database, `${gName}NkvAEtqN5/${userIDinDB}`)
@@ -116,14 +132,6 @@ function changeBgColorAndBack(elem, color1, color2) {
     }, 150)
 }
 
-
-const itemsListInDB = ref(database, groupNameLS)
-
-enterGroupButtonEl.addEventListener("click", enterGroup)
-newGroupButtonEl.addEventListener("click", addGroupInDB)
-groupExitButtonEl.addEventListener("click", exitGroupInLS)
-
-let groupArrayDB = []
 
 userNameEl.addEventListener("change", function() {
     setUserNameLS(userNameEl.value)
@@ -243,28 +251,27 @@ if (isUserLoggedInGroup == true) {
     userNameEl.removeAttribute("readonly", "")
 }
 
-addButtonEl.addEventListener("click", function() {
-    if (isUserLoggedInGroup == true && userNameEl.value && inputFieldEl.value) {
+
+
+function addItemToList() {
+    if (inputFieldEl.value.length > 27 || !inputFieldEl.value) {
+        changeBgColorAndBack(inputFieldEl, "#F97272", "#DCE1EB")
+    } else if (isUserLoggedInGroup == true && userNameEl.value && inputFieldEl.value) {
         let inputValue = inputFieldEl.value
         push(itemsListInDB, inputValue)
-        // changeBgColorOnMobile(addButtonEl)
         changeBgColorAndBack(addButtonEl, "#232D3F", "#005B41")
         clearInputFieldEl()
     } else if (!userNameEl.value) {
-        // userNameBgColorRed()
-        changeBgColorAndBack(userNameEl, "#F97272", "#DCE1EB")
-    } else if (!inputFieldEl.value) {
-        // inputItemBgColorRed()
         changeBgColorAndBack(userNameEl, "#F97272", "#DCE1EB")
     } else {
-        // if the input is empty and user is logged
-        // this is to set everything to default in case of error in the data.
+        // in case of error. Set everything to default
         localStorage.setItem("isUserLogged", JSON.stringify(false))
         localStorage.setItem("groupNameLS", JSON.stringify("0"))
         groupNameLS = "0"
         groupListEl.innerHTML = "You need to enter a group..."
+        location.reload()
     }
-    })
+}
 
 onValue(itemsListInDB, function(snapshot) {
     if (snapshot.exists() && isUserLoggedInGroup == true) {

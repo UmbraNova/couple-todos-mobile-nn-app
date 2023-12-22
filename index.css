@@ -169,7 +169,7 @@ span::after {
 
 #login-container > button {
     border-radius: 0 8px 8px 0;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     max-height: 54px;
     min-width: 160px;
 }

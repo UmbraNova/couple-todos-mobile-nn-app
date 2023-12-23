@@ -211,8 +211,8 @@ span::after {
 .buttons-container > label > input {
     vertical-align: middle;
     accent-color: var(--main-bg-hover-color);
-    width: 15px;
-    height: 15px;
+    width: 18px;
+    height: 18px;
 }
 
 .buttons-container > label > input:checked {

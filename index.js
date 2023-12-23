@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
-import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+import { getDatabase, ref, push, onValue, remove, update } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
 const appSettings = {
     databaseURL: "https://couple-todos-default-rtdb.europe-west1.firebasedatabase.app/"
@@ -53,13 +53,13 @@ if (JSON.parse(localStorage.getItem("groupNameLS")) === null) {
 let isUserLoggedInGroup = JSON.parse(localStorage.getItem("isUserLogged"))
 userNameEl.value = JSON.parse(localStorage.getItem("userNameLS"))
 
-
 const usersInGroupEl = document.getElementById('people-dropdown-menu')
 let usersInGroubOnlineInDB = ""
 let userIDinDB = ""
-let usersInGroupDB = ref(database, `${groupNameLS}NkvAEtqN5`)
+const usersInGroupDB = ref(database, `${groupNameLS}NkvAEtqN5`)
 const itemsListInDB = ref(database, groupNameLS)
 let groupArrayDB = []
+const colors = ["yellow", "orange", "red", "#FFFDF8"]
 
 enterGroupButtonEl.addEventListener("click", enterGroup)
 newGroupButtonEl.addEventListener("click", addGroupInDB)
@@ -248,8 +248,6 @@ if (isUserLoggedInGroup == true) {
 }
 
 
-
-
 function addItemToList() {
     if (inputFieldEl.value.length > 27 || !inputFieldEl.value) {
         changeBgColorAndBack(inputFieldEl, "#F97272", "#DCE1EB")
@@ -257,7 +255,7 @@ function addItemToList() {
         //  TODO: aici de adaugat item obiectele
         //  TODO: aici de adaugat item obiectele
         //  TODO: aici de adaugat item obiectele
-        let inputValue = {name: inputFieldEl.value, color: "#FFFDF8", count: 0}
+        let inputValue = {name: inputFieldEl.value, color: "#FFFDF8", index: 0}
         push(itemsListInDB, inputValue)
         changeBgColorAndBack(addButtonEl, "#232D3F", "#005B41")
         clearInputFieldEl()
@@ -291,34 +289,10 @@ onValue(itemsListInDB, function(snapshot) {
             appendToGroupListEl(currentItem)
         }    
     } else {
-        // localStorage.setItem("isUserLogged", JSON.stringify(false))
-        // localStorage.setItem("groupNameLS", JSON.stringify("0"))
-        // groupNameLS = "0" 
-        // DONE: fixed groupname set to 0 when 0 items in list, automatic loggout ex:  isUserLogged = false | groupNameLS = 0
-
         groupListEl.innerHTML = "No items... yet"
     }
 })
 
-
-
-// )))))))))))))))))))))))))))))))))))))))))))))))))))))
-// )))))))))))))))))))))))))))))))))))))))))))))))))))))
-// )))))))))))))))))))))))))))))))))))))))))))))))))))))
-// let objVar = {name: "placeholder", color: "#FFFDF8"}
-
-// let objVar = {name: "placeholder", color: ["blue", "red", "orange"]}
-
-// let objTest = document.getElementById("object-test")
-// objTest.addEventListener("click", function() {
-//     push(itemsListInDB, objVar)
-// })
-// )))))))))))))))))))))))))))))))))))))))))))))))))))))
-// )))))))))))))))))))))))))))))))))))))))))))))))))))))
-// )))))))))))))))))))))))))))))))))))))))))))))))))))))
-
-let count = 0
-const colors = ["green", "orange", "red"]
 
 function appendToGroupListEl(item) {
     let itemID = item[0]
@@ -336,18 +310,14 @@ function appendToGroupListEl(item) {
             let exactItemLocationInDB = ref(database, `${groupNameLS}/${itemID}`) 
             remove(exactItemLocationInDB)
         } else {
-            let exactItemLocationInDB = ref(database, `${groupNameLS}/${itemID}`) 
-            remove(exactItemLocationInDB)
-            push(itemsListInDB, {name: itemValue.name, color: colors[count]})
-            count += 1
-            // if (count > colors.length) {
-            if (count > 2) {
-                count = 0
+            let newIndex = itemValue.index + 1
+            if (newIndex > colors.length - 1) {
+                newIndex = 0
             }
+            let exactItemLocationInDB = ref(database, `${groupNameLS}/${itemID}`)
+            update(exactItemLocationInDB, {color: colors[newIndex], index: newIndex})
         }
     })
-
-
     renderItems(newEl)
 }
 

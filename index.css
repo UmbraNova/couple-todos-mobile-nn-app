@@ -5,7 +5,7 @@
     --total-height: calc(var(--slide-height) * var(--group-multiply) + 44px);
     --main-bg-color: #005B41;
     --main-bg-hover-color: #232D3F;
-    --radius: 20px;
+    --radius: 4px;
 }
 
 * {

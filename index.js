@@ -72,7 +72,6 @@ window.addEventListener("keypress", function(keyPressed) {
 })
 addButtonEl.addEventListener("click", addItemToList)
 
-
 // const emergencyExitEl = document.getElementById("emergency-btn")
 // emergencyExitEl.addEventListener("click", function() {
     //     exitGroupInLS()
@@ -85,7 +84,7 @@ addButtonEl.addEventListener("click", addItemToList)
 
 function addUserOnlineInGroupDB(gName) {
     if (userNameEl.value) {
-        usersInGroupDB = ref(database, `${gName}NkvAEtqN5`)
+        let usersInGroupDB = ref(database, `${gName}NkvAEtqN5`)
         push(usersInGroupDB, userNameEl.value)
     }
 }
@@ -96,7 +95,6 @@ onValue(usersInGroupDB, function(snapshot) {
         let allUsers = []
         for (let i = 0; i < usersInGroubOnlineInDB.length; i++) {
             if (usersInGroubOnlineInDB[i][1] == userNameEl.value) {
-                // console.log(usersInGroubOnlineInDB[i])
                 userIDinDB = usersInGroubOnlineInDB[i][0]
             }
             allUsers.push(usersInGroubOnlineInDB[i][1])
@@ -174,15 +172,17 @@ function testNameAndPassword(group, password) {
     }
 }
 
+function isPasswordMatching(password) {
+    // testing
+    return true
+}
+
 function enterGroup() {
+    console.log(groupNameFieldEl.value)
+    console.log(groupNameFieldEl.value.trim())
     let groupNameValue = groupNameFieldEl.value.trim()
-    if (checkGroupExistsInDB(groupNameValue)) {
-        // no password check!!!
-        // no password check!!!
-        // no password check!!!
-        // add password check!!!
-        // add password check!!!
-        // add password check!!!
+    if (checkGroupExistsInDB(groupNameValue) && isPasswordMatching(groupNameValue)) {
+
         changeVisualAfterLogIn(groupNameValue)
         logInUserAndGroupLS(groupNameValue)
         closeLoginWindow()
@@ -190,6 +190,9 @@ function enterGroup() {
         location.reload()
     } else {
         loginErrorInfoEl.textContent = "Group doesn't exist or password is incorect"
+        // changeBgColorAndBack(loginErrorInfoEl)
+        // changeBgColorAndBack(loginErrorInfoEl, "#232D3F", "#005B41")
+        changeBgColorAndBack(loginErrorInfoEl, "#F97272", "#DCE1EB")
     }
 }
 
@@ -262,12 +265,8 @@ function addItemToList() {
     } else if (!userNameEl.value) {
         changeBgColorAndBack(userNameEl, "#F97272", "#DCE1EB")
     } else {
-        // in case of error. Set everything to default
-        localStorage.setItem("isUserLogged", JSON.stringify(false))
-        localStorage.setItem("groupNameLS", JSON.stringify("0"))
-        groupNameLS = "0"
         groupListEl.innerHTML = "You need to enter a group..."
-        location.reload()
+        changeBgColorAndBack(groupListEl, "#F97272", "#DCE1EB")
     }
 }
 
@@ -298,12 +297,12 @@ function appendToGroupListEl(item) {
     let itemID = item[0]
     let itemValue = item[1]
     let newEl = document.createElement("li")
-    if (typeof itemValue === 'string' || itemValue instanceof String) {
-        newEl.textContent = itemValue
-    } else {
-        newEl.textContent = itemValue.name
-        newEl.style.backgroundColor = itemValue.color
-    }
+    // if (typeof itemValue === 'string' || itemValue instanceof String) {
+        // newEl.textContent = itemValue
+    // } else {
+    newEl.textContent = itemValue.name
+    newEl.style.backgroundColor = itemValue.color
+    // }
    
     newEl.addEventListener("click", function() {
         if (removeBtn.checked) {

@@ -18,6 +18,7 @@
             <!-- main app container START -->
             <div class="container">
                 <div class="user-login-container">
+    
                     <input id="user-name" type="text" placeholder="Your name...">
 
                     <!-- enter group container START -->
@@ -28,10 +29,18 @@
                                 <p>Enter a group name and password</p>
                                 <input id="group-name-field" placeholder="group name..." type="text" required>
                                 <input id="password-field" placeholder="password..." type="password" required>
-                                <button id="enter-group-button">Enter Group</button>
-                                <button id="new-group-button">Add New Group</button>
+                                <div class="buttons-container">
+                                    <button id="enter-group-button">Enter Group</button>
+                                    <button id="new-group-button">Add New Group</button>
+                                </div>
                                 <button id="exit-group-button">Exit</button>
                                 <p id="login-error-info-el"></p>
+                                <select>
+                                    <option value="" class="colorOne">a</option>
+                                    <option value="" class="colorTwo">a</option>
+                                    <option value="" class="colorThree">a</option>
+                                    <option value="" class="colorFour">a</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -45,21 +54,8 @@
                 </div>
                 
                 <!-- <button id="object-test">Object To DB Test</button> -->
-
-
                 <!-- <button id="emergency-btn">Emergency Exit</button> -->
-                
-                <!-- <ul>
-                    <li>testname
-                        <select>
-                            <option value="">name1</option>
-                            <option value="">name2</option>
-                            <option value="">name3</option>
-                            <option value="">name4</option>
-                        </select>
-                    </li>
-                </ul> -->
-                
+
                 <nav>
                     <label for="on-touch"><span id="people-in-group">People in group</span></label>
                     <input type="checkbox" id="on-touch">
@@ -71,7 +67,6 @@
                 </ul>
             </div>
             <!-- main app container END -->
-
 
 
             <!-- chat container START -->

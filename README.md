@@ -11,7 +11,7 @@ APP link: http://couple-todos-mobile-nonnative-app.netlify.app/
 **Welcome to Collaborative Group Organizer**, a non-native mobile app built using *JavaScript*, *CSS*, and *HTML*. This app leverages Firebase Realtime Database to provide seamless, real-time collaboration for creating and managing shared lists within groups. Whether it's organizing a shopping list, planning for an event, or managing tasks, this app allows multiple users to collaborate in real-time.
 
 <sup>note*</sup>
-*Remember! This is a personal project for learning purposes, so maybe I used more const's than needed and also some refactoring is necessary*
+<sub>*Remember! This is a personal project for learning purposes, so maybe I used more const's than needed and also some refactoring is necessary*</sub>
 
 ```javascript
 const enterGroupButtonEl = document.getElementById("enter-group-button")

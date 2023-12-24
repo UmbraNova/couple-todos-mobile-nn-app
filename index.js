@@ -59,11 +59,14 @@ let userIDinDB = ""
 const usersInGroupDB = ref(database, `${groupNameLS}NkvAEtqN5`)
 const itemsListInDB = ref(database, groupNameLS)
 let groupArrayDB = []
-const colors = ["yellow", "orange", "red", "#FFFDF8"]
+const colors = ["#FFF78A", "#FB8B24", "#BE3144", "#FFFDF8"]
 
 enterGroupButtonEl.addEventListener("click", enterGroup)
 newGroupButtonEl.addEventListener("click", addGroupInDB)
 groupExitButtonEl.addEventListener("click", exitGroupInLS)
+document.getElementById("exit-login-window").addEventListener("click", function() {
+    location.reload()
+})
 
 window.addEventListener("keypress", function(keyPressed) {
     if (keyPressed.key == "Enter") {
@@ -149,20 +152,21 @@ function setUserNameLS(name="0") {
 
 onValue(groupsInDB, function(snapshot) {
     if (snapshot.exists()) {
-        groupArrayDB = Object.values(snapshot.val())        
-    } else {
-        console.log("no group exists yet in database")
+        groupArrayDB = Object.values(snapshot.val())
+        console.log(Object.values(snapshot.val()))
     }
 })
 
 function addGroupInDB() {
     if (checkGroupExistsInDB(groupNameFieldEl.value)) {
         loginErrorInfoEl.textContent = "Group already exists"
+        changeBgColorAndBack(loginErrorInfoEl, "#F97272", "#DCE1EB")
     } else if (testNameAndPassword(groupNameFieldEl.value, passwordFieldEl.value)) {
         push(groupsInDB, [groupNameFieldEl.value, passwordFieldEl.value])
         enterGroup()
     } else {
         loginErrorInfoEl.innerHTML = "Group name length must be between 4 characters and 14"
+        changeBgColorAndBack(loginErrorInfoEl, "#F97272", "#ffffff")
     }
 }
 
@@ -174,14 +178,19 @@ function testNameAndPassword(group, password) {
 
 function isPasswordMatching(password) {
     // testing
+    
     return true
 }
 
 function enterGroup() {
-    console.log(groupNameFieldEl.value)
-    console.log(groupNameFieldEl.value.trim())
+    // console.log(groupNameFieldEl.value)
+    // console.log(groupNameFieldEl.value.trim())
+    // console.log(passwordFieldEl.value)
+    // TODO: the checking of group name and pass with whitespace an show error if trying to add spaces?
+    // TODO: the checking of group name and pass with whitespace an show error if trying to add spaces?
+    // TODO: the checking of group name and pass with whitespace an show error if trying to add spaces?
     let groupNameValue = groupNameFieldEl.value.trim()
-    if (checkGroupExistsInDB(groupNameValue) && isPasswordMatching(groupNameValue)) {
+    if (checkGroupExistsInDB(groupNameValue) && isPasswordMatching(passwordFieldEl.value)) {
 
         changeVisualAfterLogIn(groupNameValue)
         logInUserAndGroupLS(groupNameValue)
@@ -189,7 +198,10 @@ function enterGroup() {
         addUserOnlineInGroupDB(groupNameValue)
         location.reload()
     } else {
-        loginErrorInfoEl.textContent = "Group doesn't exist or password is incorect"
+        loginErrorInfoEl.textContent = "Group doesn't exist or password is incorect, also no whitespaces in the name and password"
+        // TODO: add a normal message with what went wrong
+        // TODO: add a normal message with what went wrong
+        // TODO: add a normal message with what went wrong
         // changeBgColorAndBack(loginErrorInfoEl)
         // changeBgColorAndBack(loginErrorInfoEl, "#232D3F", "#005B41")
         changeBgColorAndBack(loginErrorInfoEl, "#F97272", "#DCE1EB")
@@ -202,8 +214,12 @@ function checkGroupExistsInDB(groupName) {
         let curGroupName = groupArrayDB[i][0]
         if (groupName == curGroupName) {
             groupExistsInDB = true
+            // TODO: change?
+            // return true
         }
     }
+    // TODO: change?
+    // return false
     return groupExistsInDB
 }
 
@@ -252,12 +268,10 @@ if (isUserLoggedInGroup == true) {
 
 
 function addItemToList() {
+    // playElAnimation(addButtonEl)
     if (inputFieldEl.value.length > 27 || !inputFieldEl.value) {
         changeBgColorAndBack(inputFieldEl, "#F97272", "#DCE1EB")
     } else if (isUserLoggedInGroup == true && userNameEl.value && inputFieldEl.value) {
-        //  TODO: aici de adaugat item obiectele
-        //  TODO: aici de adaugat item obiectele
-        //  TODO: aici de adaugat item obiectele
         let inputValue = {name: inputFieldEl.value, color: "#FFFDF8", index: 0}
         push(itemsListInDB, inputValue)
         changeBgColorAndBack(addButtonEl, "#232D3F", "#005B41")
@@ -266,7 +280,7 @@ function addItemToList() {
         changeBgColorAndBack(userNameEl, "#F97272", "#DCE1EB")
     } else {
         groupListEl.innerHTML = "You need to enter a group..."
-        changeBgColorAndBack(groupListEl, "#F97272", "#DCE1EB")
+        changeBgColorAndBack(groupListEl, "#F97272", "#ffffff")
     }
 }
 
@@ -292,6 +306,20 @@ onValue(itemsListInDB, function(snapshot) {
     }
 })
 
+window.addEventListener("click", function(e) {
+    if (e.target.localName === "button" || e.target.localName === "label" || e.target.localName === "span") {
+        const elem = document.getElementById(e.target.id)
+        playElAnimation(elem)
+    }
+})
+
+function playElAnimation(elem) {
+    elem.classList.add("expand")
+    setTimeout(function() {
+        elem.classList.remove("expand")
+    }, 210)
+}
+
 
 function appendToGroupListEl(item) {
     let itemID = item[0]
@@ -305,6 +333,7 @@ function appendToGroupListEl(item) {
     // }
    
     newEl.addEventListener("click", function() {
+        playElAnimation(newEl)
         if (removeBtn.checked) {
             let exactItemLocationInDB = ref(database, `${groupNameLS}/${itemID}`) 
             remove(exactItemLocationInDB)
@@ -317,9 +346,6 @@ function appendToGroupListEl(item) {
             update(exactItemLocationInDB, {color: colors[newIndex], index: newIndex})
         }
     })
-    renderItems(newEl)
+    groupListEl.append(newEl)
 }
 
-function renderItems(elem) {
-    groupListEl.append(elem)
-}

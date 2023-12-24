@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
     <head>
         <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"> -->
@@ -17,31 +17,39 @@
         <main>
             <!-- main app container START -->
             <div class="container">
-                <div class="user-login-container">
-    
-                    <input id="user-name" type="text" placeholder="Your name...">
-
-                    
+                <!-- <div class="user-login-container"> -->
+                <div>
                     <!-- enter group container START -->
                     <div id="login-container">
-                        <button id="open-login-window-btn">Login group</button>
+                        <div class="name-and-group">
+                            <input id="user-name" type="text" placeholder="Your name...">
+                            <button id="open-login-window-btn">Login group</button>
+                        </div>
                         <div id="login-window">
                             <div id="login-window-content">
+                                <button id="exit-login-window">✕</button>
                                 <p>Enter a group name and password</p>
                                 <input id="group-name-field" placeholder="group name..." type="text" required>
                                 <input id="password-field" placeholder="password..." type="password" required>
                                 <div class="buttons-container">
-                                    <button id="enter-group-button">Enter Group</button>
-                                    <button id="new-group-button">Add New Group</button>
+                                    <button id="enter-group-button">Enter group</button>
+                                    <button id="new-group-button">Create group</button>
                                 </div>
-                                <button id="exit-group-button">Exit</button>
+                                <button id="exit-group-button">Exit group</button>
                                 <p id="login-error-info-el"></p>
-                                <select>
+                                <hr>
+                                <ul class="info-section">
+                                    <li>Create the group using a name and a password.</li>
+                                    <li>If the group already exists, try another name.</li>
+                                    <li>If you already have agroup, just enter the group using the name and password.</li>
+                                    <li>Make sure to type it correctly.</li>
+                                </ul>
+                                <!-- <select>
                                     <option value="" class="colorOne">a</option>
                                     <option value="" class="colorTwo">a</option>
                                     <option value="" class="colorThree">a</option>
                                     <option value="" class="colorFour">a</option>
-                                </select>
+                                </select> -->
                             </div>
                         </div>
                     </div>
@@ -50,7 +58,7 @@
                 <img class="app-image" src="assets/cloud.png">
                 <input type="text" id="input-field" placeholder="Example...">
                 <div class="buttons-container">
-                    <label for="remove-btn"><input id="remove-btn" type="checkbox">Remove</label>
+                    <label for="remove-btn" id="label-for-remove-btn"><input id="remove-btn" type="checkbox">Remove</label>
                     <button id="add-button">Add to List</button>
                 </div>
                 

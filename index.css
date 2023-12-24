@@ -1,7 +1,7 @@
 /* declaring main variables */
 :root {
     --group-multiply: 1;
-    --slide-height: 62px;
+    --slide-height: 54px; /* change the contianer height of the "people in group" section */
     --total-height: calc(var(--slide-height) * var(--group-multiply) + 44px);
     --main-bg-color: #005B41;
     --main-bg-hover-color: #232D3F;
@@ -10,6 +10,7 @@
 
 * {
     font-weight: bold;
+    box-sizing: border-box;
 }
 
 html, body {
@@ -42,11 +43,12 @@ input {
     color: #432000;
     background-color: #DCE1EB;
     border: 0;
-    padding: 13px;
     border-radius: var(--radius);
     font-size: 20px;
     text-align: center;
     font-family: 'Rubik', sans-serif;
+    /* height: 40px; */
+    padding: 10px;
 }
 
 input[id="input-field"] {
@@ -57,11 +59,12 @@ button, span, .buttons-container > label {
     color: #FDFDFD;
     background-color: var(--main-bg-color);
     border: 0;
-    padding: 13px;
     border-radius: var(--radius);
     font-size: 20px;
     text-align: center;
     font-family: 'Rubik', sans-serif;
+    /* height: 40px; */
+    padding: 10px;
 }
 
 #group-list {
@@ -78,21 +81,14 @@ button, span, .buttons-container > label {
 
 #group-list li {
     font-size: 20px;
+    /* background-color: #F3EDC8; */
     background-color: #FFFDF8;
-    padding: 15px;
     border-radius: var(--radius);
     flex-grow: 1;
     text-align: center;
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2)
-}
-
-/* deactivate the hover effect on mobile devices */
-@media (hover: hover) {
-    #shopping-list li:hover, button:hover, span:hover {
-        background-color: var(--main-bg-hover-color);
-        color: #FDFDFD;
-        cursor: pointer;
-    }
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+    /* height: 40px; */
+    padding: 10px;
 }
 
 /* dropdown START */
@@ -131,13 +127,21 @@ span::after {
     position: absolute;
 }
 
+hr {
+    width: 100%;
+    border: 1px solid #432000;
+}
+
+.info-section {
+    text-align: start;
+}
 
 #on-touch:checked + #people-dropdown-menu {height: var(--total-height);}
 /* dropdown END */
 
 /* login START */
 #login-window {
-    background: white;
+    background: #ffffff;
     border: 1px solid black;
     border-radius: var(--radius);
     display: none;
@@ -161,26 +165,8 @@ span::after {
 #login-window-content > input {
     margin-bottom: 10px;
 }
+
 /* login END */
-
-.user-login-container {
-    display: flex;
-    align-items: center;
-}
-
-#login-container > button {
-    border-radius: 0 var(--radius) var(--radius) 0;
-    margin-bottom: 12px;
-    max-height: 54px;
-    min-width: 160px;
-}
-
-#user-name {
-    min-width: 80px;
-    width: 50%;
-    border-radius: var(--radius) 0 0 var(--radius);
-}
-
 
 .app-image {
     animation: dancing 3s infinite ease-in-out;
@@ -204,7 +190,7 @@ span::after {
 
 .buttons-container > label {
     border-radius: var(--radius) 0 0 var(--radius);
-    height: 24px;
+    height: 44px;
     width: 50%;
 }
 
@@ -233,6 +219,37 @@ span::after {
     width: 50%;
 }
 
+#exit-login-window {
+    width: 25px;
+    height: 25px;
+    background-color: #D1300E;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    padding: 0;
+    line-height: 0;
+}
+
+.name-and-group {
+    display: flex;
+}
+
+.name-and-group > button {
+    width: 50%;
+    margin: 0;
+    border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.name-and-group > input {
+    width: 50%;
+    margin: 0;
+    height: 44px;
+    border-radius: var(--radius) 0 0 var(--radius);
+}
+
+
+
+/* TODO: test color check for name color change in people group */
 select {
     /* height: 50px; */
     /* line-height: 50px; */
@@ -250,3 +267,30 @@ select {
 .colorTwo {background: yellow;}
 .colorThree {background: orange;}
 .colorFour {background: red;}
+
+.expand {
+    /* transform: scale(0.93); */
+    /* transform: scale(1.07); */
+    animation: expandAnim 0.2s ease-out;
+}
+
+@keyframes expandAnim {
+    0% {
+        transform: scale(1.02);
+    }
+    50% {
+        transform: scale(1.07);
+    }
+    100% {
+        transform: scale(1.02);
+    }
+}
+
+/* deactivate the hover effect on mobile devices */
+@media (hover: hover) {
+    #shopping-list li:hover, button:hover, span:hover, #label-for-remove-btn:hover {
+        background-color: var(--main-bg-hover-color) !important;
+        color: #FDFDFD;
+        cursor: pointer;
+    }
+}

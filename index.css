@@ -146,6 +146,7 @@ hr {
 
 .info-section {
     text-align: start;
+    padding-left: 20px;
 }
 
 .info-section > li  {
@@ -266,11 +267,7 @@ p {
 }
 
 /* TODO: test color check for name color change in people group */
-select {
-    /* height: 50px; */
-    /* line-height: 50px; */
-    /* border: 0; */
-    /* border-radius: 8px; */
+/* select {
     background: rgb(255, 253, 248);
     padding: 14px;
     color: #FDFDFD;
@@ -282,7 +279,7 @@ select {
 .colorOne {background: rgb(255, 253, 248);}
 .colorTwo {background: yellow;}
 .colorThree {background: orange;}
-.colorFour {background: red;}
+.colorFour {background: red;} */
 
 .expand {
     /* transform: scale(0.93); */

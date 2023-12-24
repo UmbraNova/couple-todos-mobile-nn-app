@@ -171,7 +171,7 @@ function addGroupInDB() {
         push(groupsInDB, [groupNameFieldEl.value, passwordFieldEl.value])
         enterGroup()
     } else {
-        loginErrorInfoEl.innerHTML = "Group name length must be between 4 characters and 14, no whitespaces"
+        loginErrorInfoEl.innerHTML = "Group name and password length must be between 4 characters and 14, no whitespaces"
         changeBgColorAndBack(loginErrorInfoEl, "#F97272", "#ffffff")
     }
 }

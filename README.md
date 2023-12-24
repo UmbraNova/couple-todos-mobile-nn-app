@@ -1,1 +1,56 @@
-This is a non native mobile app in JavaScript, CSS, HTML
+APP link: http://couple-todos-mobile-nonnative-app.netlify.app/
+
+Collaborative Group Organizer
+Welcome to Collaborative Group Organizer, a non-native mobile app built using JavaScript, CSS, and HTML. This app leverages Firebase Realtime Database to provide seamless, real-time collaboration for creating and managing shared lists within groups. Whether it's organizing a shopping list, planning for an event, or managing tasks, this app allows multiple users to collaborate in real-time.
+
+Features
+Create and Join Groups: Start by creating your own group or join an existing one by entering the group name and password.
+
+Realtime Updates: Experience the power of Firebase Realtime Database for instant updates. Every change made within the group is instantly reflected across all devices.
+
+User-friendly Interface: Simple and intuitive interface for adding, editing, and marking items as done. Anyone in the group can see the changes as they happen.
+
+Customizable Colors: Personalize your group by assigning different colors to items. Easily distinguish tasks or items assigned to different people.
+
+Dynamic Color Palette: Tailor the app to your preferences by customizing the color palette, background color, and main colors. The changes are synchronized with everyone in the group.
+
+Multi-user Collaboration: Invite others to your group by sharing the group name and password. Collaborate in real-time on tasks, events, or shopping lists.
+
+How to Use
+Create or Join a Group: Start by creating your own group or join an existing one using the provided group name and password.
+
+Add Items: Begin adding items to the group list, whether they are to-dos, shopping items, or tasks. Everyone in the group can see and interact with the items.
+
+Customize Colors: Personalize the group by assigning specific colors to items. This helps in easily identifying who is responsible for a particular task or item.
+
+Change Color Palette: Customize the overall look of the app by changing the color palette, background color, and main colors. All changes are synchronized across all devices.
+
+Collaborate with Others: Share the group name and password with others to collaborate on group activities. Everyone can contribute and see real-time updates.
+
+Getting Started
+To run this app locally or deploy it to your own server, follow these steps:
+
+Clone the repository:
+
+```
+git clone https://github.com/your-username/your-repository.git
+```
+
+
+Open the project in your preferred code editor.
+
+Customize Firebase Configuration: Replace the Firebase configuration in firebase-config.js with your own credentials.
+
+Open index.html in a web browser or deploy the app to a web server.
+
+Access the app on your mobile device by adding it to the home screen using the provided link.
+
+Contributing
+Contributions are welcome! If you have ideas for improvements or find any issues, feel free to open an issue or submit a pull request.
+
+
+```
+TODO:
+- 
+
+```

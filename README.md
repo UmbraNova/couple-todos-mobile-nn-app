@@ -1,6 +1,13 @@
 APP link: http://couple-todos-mobile-nonnative-app.netlify.app/
 
 Collaborative Group Organizer
+
+note*
+```
+// DB = database
+// LS = localstorage
+```
+
 Welcome to Collaborative Group Organizer, a non-native mobile app built using JavaScript, CSS, and HTML. This app leverages Firebase Realtime Database to provide seamless, real-time collaboration for creating and managing shared lists within groups. Whether it's organizing a shopping list, planning for an event, or managing tasks, this app allows multiple users to collaborate in real-time.
 
 Features
@@ -27,15 +34,29 @@ Change Color Palette: Customize the overall look of the app by changing the colo
 
 Collaborate with Others: Share the group name and password with others to collaborate on group activities. Everyone can contribute and see real-time updates.
 
-Getting Started
-To run this app locally or deploy it to your own server, follow these steps:
+Getting Started:
+
+How to import
+```
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
+import { getDatabase, ref, push, onValue, remove, update } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+```
+
+How to initialize
+```
+const appSettings = {
+    databaseURL: "https://couple-todos-default-rtdb.europe-west1.firebasedatabase.app/"
+}
+
+const app = initializeApp(appSettings)
+const database = getDatabase(app)
+```
+
 
 Clone the repository:
-
 ```
 git clone https://github.com/your-username/your-repository.git
 ```
-
 
 Open the project in your preferred code editor.
 

@@ -108,6 +108,28 @@ button, span, .buttons-container > label {
     height: 100%;
 }
 
+.name-and-group {
+    display: flex;
+    height: 44px;
+}
+
+.name-and-group > button {
+    width: 50%;
+    margin: 0;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    height: 100%;
+}
+
+.name-and-group > input {
+    width: 50%;
+    margin: 0;
+    border-radius: var(--radius) 0 0 var(--radius);
+}
+
+p {
+    border-radius: var(--radius);
+    padding: 10px;
+}
 
 #group-list {
     list-style-type: none;
@@ -254,28 +276,6 @@ hr {
     line-height: 0;
 }
 
-.name-and-group {
-    display: flex;
-    height: 44px;
-}
-
-.name-and-group > button {
-    width: 50%;
-    margin: 0;
-    border-radius: 0 var(--radius) var(--radius) 0;
-    height: 100%;
-}
-
-.name-and-group > input {
-    width: 50%;
-    margin: 0;
-    border-radius: var(--radius) 0 0 var(--radius);
-}
-
-p {
-    border-radius: var(--radius);
-    padding: 10px;
-}
 
 /* TODO: test color check for name color change in people group */
 /* select {

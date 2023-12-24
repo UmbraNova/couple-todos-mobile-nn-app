@@ -3,8 +3,10 @@
     --group-multiply: 1;
     --slide-height: 54px; /* change the contianer height of the "people in group" section */
     --total-height: calc(var(--slide-height) * var(--group-multiply) + 44px);
-    --main-bg-color: #005B41;
-    --main-bg-hover-color: #232D3F;
+    /* --main-bg-color: #005B41; */
+    /* --main-bg-hover-color: #232D3F; */
+    --main-bg-color: #29ADB2;
+    --main-bg-hover-color: #0766AD;
     --radius: 4px;
 }
 

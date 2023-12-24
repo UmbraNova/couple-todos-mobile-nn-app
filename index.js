@@ -45,6 +45,11 @@ const userNameEl = document.getElementById("user-name")
 const peopleInGroupButtonEl = document.getElementById("people-in-group")
 let groupNameLS = JSON.parse(localStorage.getItem("groupNameLS"))
 const removeBtn = document.getElementById("remove-btn")
+const mainBgColor = document.documentElement.style.getPropertyValue("--main-bg-color")
+const mainBgHoverColor = document.documentElement.style.getPropertyValue("--main-bg-hover-color")
+// const mainBgColor = "#29ADB2"
+// const mainBgHoverColor = "#0766AD"
+
 
 if (JSON.parse(localStorage.getItem("groupNameLS")) === null) {
     localStorage.setItem("groupNameLS", JSON.stringify("0"))
@@ -59,7 +64,7 @@ let userIDinDB = ""
 const usersInGroupDB = ref(database, `${groupNameLS}NkvAEtqN5`)
 const itemsListInDB = ref(database, groupNameLS)
 let groupArrayDB = []
-const colors = ["#FFC0D9", "#6DB9EF", "#ED8C35", "#FFFDF8"]
+const colors = ["#FFFDF8", "#FFC0D9", "#6DB9EF", "#ED8C35"]
 
 enterGroupButtonEl.addEventListener("click", enterGroup)
 newGroupButtonEl.addEventListener("click", addGroupInDB)
@@ -122,7 +127,7 @@ onValue(usersInGroupDB, function(snapshot) {
             allUsers.push(usersInGroubOnlineInDB[i][1])
         }
         if (isUserLoggedInGroup) {
-            changeBgColorAndBack(peopleInGroupButtonEl, "wheat", "#005B41")
+            changeBgColorAndBack(peopleInGroupButtonEl, "wheat", mainBgColor)
             renderUserOnline(allUsers)
         }
     }
@@ -226,14 +231,14 @@ function logInUserAndGroupLS(groupName) {
 
 function changeVisualAfterLogIn(name="Login group") {
     openLoginWindow.textContent = name
-    openLoginWindow.style.backgroundColor = "#232D3F"
+    openLoginWindow.style.backgroundColor = mainBgHoverColor
     groupNameFieldEl.value = ""
     passwordFieldEl.value = ""
 }
 
 function changeVisualEfterExit() {
     openLoginWindow.textContent = "Login group"
-    openLoginWindow.style.backgroundColor = "#005B41"
+    openLoginWindow.style.backgroundColor = mainBgHoverColor
     groupNameFieldEl.value = ""
     passwordFieldEl.value = ""
 }
@@ -270,7 +275,7 @@ function addItemToList() {
     } else if (isUserLoggedInGroup == true && userNameEl.value && inputFieldEl.value) {
         let inputValue = {name: inputFieldEl.value, color: "#FFFDF8", index: 0}
         push(itemsListInDB, inputValue)
-        changeBgColorAndBack(addButtonEl, "#232D3F", "#005B41")
+        changeBgColorAndBack(addButtonEl, mainBgHoverColor, mainBgColor)
         clearInputFieldEl()
     } else if (!userNameEl.value) {
         changeBgColorAndBack(userNameEl, "#F97272", "#DCE1EB")

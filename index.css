@@ -33,12 +33,6 @@ html, body {
     margin-top: 12px;
 }
 
-
-img {
-    width: 130px;
-    margin: 0 auto;
-}
-
 input {
     color: #432000;
     background-color: #DCE1EB;
@@ -51,9 +45,23 @@ input {
     padding: 10px;
 }
 
+.app-image {
+    animation: dancing 3s infinite ease-in-out;
+    /* position: absolute; */
+    /* top: 26px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto; */
+    margin: auto;
+    width: 120px;
+
+}
+
 input[id="input-field"] {
     margin-bottom: 10px;
 }
+
 
 button, span, .buttons-container > label {
     color: #FDFDFD;
@@ -63,7 +71,6 @@ button, span, .buttons-container > label {
     font-size: 20px;
     text-align: center;
     font-family: 'Rubik', sans-serif;
-    /* height: 40px; */
     padding: 10px;
 }
 
@@ -87,11 +94,14 @@ button, span, .buttons-container > label {
     flex-grow: 1;
     text-align: center;
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
-    /* height: 40px; */
     padding: 10px;
 }
 
 /* dropdown START */
+nav {
+    margin-bottom: -16px;
+}
+
 nav li {
     height: 10px;
     list-style-type: none;
@@ -136,6 +146,10 @@ hr {
     text-align: start;
 }
 
+.info-section > li  {
+    margin-bottom: 10px;
+}
+
 #on-touch:checked + #people-dropdown-menu {height: var(--total-height);}
 /* dropdown END */
 
@@ -167,10 +181,6 @@ hr {
 }
 
 /* login END */
-
-.app-image {
-    animation: dancing 3s infinite ease-in-out;
-}
 
 @keyframes dancing {
     0% {
@@ -232,6 +242,7 @@ hr {
 
 .name-and-group {
     display: flex;
+    margin-bottom: -16px;
 }
 
 .name-and-group > button {
@@ -247,7 +258,10 @@ hr {
     border-radius: var(--radius) 0 0 var(--radius);
 }
 
-
+p {
+    border-radius: var(--radius);
+    padding: 10px;
+}
 
 /* TODO: test color check for name color change in people group */
 select {

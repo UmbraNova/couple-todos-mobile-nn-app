@@ -64,8 +64,8 @@ const colors = ["#FFF78A", "#FB8B24", "#BE3144", "#FFFDF8"]
 enterGroupButtonEl.addEventListener("click", enterGroup)
 newGroupButtonEl.addEventListener("click", addGroupInDB)
 groupExitButtonEl.addEventListener("click", exitGroupInLS)
-document.getElementById("exit-login-window").addEventListener("click", function() {
-    location.reload()
+document.getElementById("exit-login-window").addEventListener("click", function(e) {
+    loginWindow.style.display = "none"
 })
 
 window.addEventListener("keypress", function(keyPressed) {
@@ -75,12 +75,31 @@ window.addEventListener("keypress", function(keyPressed) {
 })
 addButtonEl.addEventListener("click", addItemToList)
 
+// TODO: add ONE EventListener for every interaction instead of 8
+// TODO: add ONE EventListener for every interaction instead of 8
+// TODO: add ONE EventListener for every interaction instead of 8
+
+userNameEl.addEventListener("change", function() {
+    setUserNameLS(userNameEl.value)
+    const userNameLS = JSON.parse(localStorage.getItem("userNameLS"))
+    userNameEl.value = userNameLS
+})
+
+openLoginWindow.addEventListener("click", function() {
+    if (userNameEl.value) {
+        setUserNameLS(userNameEl.value)
+        loginWindow.style.display = "block"
+    } else {
+        changeBgColorAndBack(userNameEl, "#F97272", "#DCE1EB")
+    }
+})
+
 // const emergencyExitEl = document.getElementById("emergency-btn")
 // emergencyExitEl.addEventListener("click", function() {
     //     exitGroupInLS()
     // })
     
-    function removeOnlineUserFromGroupDB(gName) {
+function removeOnlineUserFromGroupDB(gName) {
     let exactUserLocationInDB = ref(database, `${gName}NkvAEtqN5/${userIDinDB}`)
     remove(exactUserLocationInDB)
 }
@@ -130,21 +149,6 @@ function changeBgColorAndBack(elem, color1, color2) {
 }
 
 
-userNameEl.addEventListener("change", function() {
-    setUserNameLS(userNameEl.value)
-    const userNameLS = JSON.parse(localStorage.getItem("userNameLS"))
-    userNameEl.value = userNameLS
-})
-
-openLoginWindow.addEventListener("click", function(event) {
-    event.preventDefault()
-    if (userNameEl.value) {
-        setUserNameLS(userNameEl.value)
-        loginWindow.style.display = "block"
-    } else {
-        changeBgColorAndBack(userNameEl, "#F97272", "#DCE1EB")
-    }
-})
         
 function setUserNameLS(name="0") {
     localStorage.setItem("userNameLS", JSON.stringify(name))
@@ -153,19 +157,18 @@ function setUserNameLS(name="0") {
 onValue(groupsInDB, function(snapshot) {
     if (snapshot.exists()) {
         groupArrayDB = Object.values(snapshot.val())
-        console.log(Object.values(snapshot.val()))
     }
 })
 
 function addGroupInDB() {
     if (checkGroupExistsInDB(groupNameFieldEl.value)) {
         loginErrorInfoEl.textContent = "Group already exists"
-        changeBgColorAndBack(loginErrorInfoEl, "#F97272", "#DCE1EB")
+        changeBgColorAndBack(loginErrorInfoEl, "#F97272", "#ffffff")
     } else if (testNameAndPassword(groupNameFieldEl.value, passwordFieldEl.value)) {
         push(groupsInDB, [groupNameFieldEl.value, passwordFieldEl.value])
         enterGroup()
     } else {
-        loginErrorInfoEl.innerHTML = "Group name length must be between 4 characters and 14"
+        loginErrorInfoEl.innerHTML = "Group name length must be between 4 characters and 14, no whitespaces"
         changeBgColorAndBack(loginErrorInfoEl, "#F97272", "#ffffff")
     }
 }
@@ -176,21 +179,18 @@ function testNameAndPassword(group, password) {
     }
 }
 
-function isPasswordMatching(password) {
-    // testing
-    
-    return true
+function isGroupMatchingPassword(group, password) {
+    for (let groupCredentials of groupArrayDB) {
+        if (groupCredentials[0] === group && groupCredentials[1] === password) {
+            return true
+        }
+    }
+    return false
 }
 
 function enterGroup() {
-    // console.log(groupNameFieldEl.value)
-    // console.log(groupNameFieldEl.value.trim())
-    // console.log(passwordFieldEl.value)
-    // TODO: the checking of group name and pass with whitespace an show error if trying to add spaces?
-    // TODO: the checking of group name and pass with whitespace an show error if trying to add spaces?
-    // TODO: the checking of group name and pass with whitespace an show error if trying to add spaces?
     let groupNameValue = groupNameFieldEl.value.trim()
-    if (checkGroupExistsInDB(groupNameValue) && isPasswordMatching(passwordFieldEl.value)) {
+    if (checkGroupExistsInDB(groupNameValue) && isGroupMatchingPassword(groupNameValue, passwordFieldEl.value)) {
 
         changeVisualAfterLogIn(groupNameValue)
         logInUserAndGroupLS(groupNameValue)
@@ -198,13 +198,11 @@ function enterGroup() {
         addUserOnlineInGroupDB(groupNameValue)
         location.reload()
     } else {
-        loginErrorInfoEl.textContent = "Group doesn't exist or password is incorect, also no whitespaces in the name and password"
+        loginErrorInfoEl.textContent = "Group doesn't exist or password is incorect"
         // TODO: add a normal message with what went wrong
         // TODO: add a normal message with what went wrong
         // TODO: add a normal message with what went wrong
-        // changeBgColorAndBack(loginErrorInfoEl)
-        // changeBgColorAndBack(loginErrorInfoEl, "#232D3F", "#005B41")
-        changeBgColorAndBack(loginErrorInfoEl, "#F97272", "#DCE1EB")
+        changeBgColorAndBack(loginErrorInfoEl, "#F97272", "#ffffff")
     }
 }
 
@@ -279,8 +277,8 @@ function addItemToList() {
     } else if (!userNameEl.value) {
         changeBgColorAndBack(userNameEl, "#F97272", "#DCE1EB")
     } else {
-        groupListEl.innerHTML = "You need to enter a group..."
-        changeBgColorAndBack(groupListEl, "#F97272", "#ffffff")
+        groupListEl.textContent = "You need to enter a group..."
+        changeBgColorAndBack(groupListEl, "#F97272", "#EEF0F4")
     }
 }
 

@@ -9,21 +9,6 @@ const appSettings = {
 // LS = localstorage
 
 
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-// TODO: live chat with feed (objects?)
-// TODO: ability to select/color/icon an item from list baset on your account
-// TODO: fix the password required, when entering group
-
-
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-
-
 const app = initializeApp(appSettings)
 const database = getDatabase(app)
 
@@ -80,10 +65,6 @@ window.addEventListener("keypress", function(keyPressed) {
 })
 addButtonEl.addEventListener("click", addItemToList)
 
-// TODO: add ONE EventListener for every interaction instead of 8
-// TODO: add ONE EventListener for every interaction instead of 8
-// TODO: add ONE EventListener for every interaction instead of 8
-
 userNameEl.addEventListener("change", function() {
     setUserNameLS(userNameEl.value)
     const userNameLS = JSON.parse(localStorage.getItem("userNameLS"))
@@ -99,10 +80,6 @@ openLoginWindow.addEventListener("click", function() {
     }
 })
 
-// const emergencyExitEl = document.getElementById("emergency-btn")
-// emergencyExitEl.addEventListener("click", function() {
-    //     exitGroupInLS()
-    // })
     
 function removeOnlineUserFromGroupDB(gName) {
     let exactUserLocationInDB = ref(database, `${gName}NkvAEtqN5/${userIDinDB}`)
@@ -202,26 +179,18 @@ function enterGroup() {
         location.reload()
     } else {
         loginErrorInfoEl.textContent = "Group doesn't exist or password is incorect"
-        // TODO: add a normal message with what went wrong
-        // TODO: add a normal message with what went wrong
-        // TODO: add a normal message with what went wrong
         changeBgColorAndBack(loginErrorInfoEl, "#F97272", "#ffffff")
     }
 }
 
 function checkGroupExistsInDB(groupName) {
-    let groupExistsInDB = false
     for (let i = 0; i < groupArrayDB.length; i++) {
         let curGroupName = groupArrayDB[i][0]
         if (groupName == curGroupName) {
-            groupExistsInDB = true
-            // TODO: change?
-            // return true
+            return true
         }
     }
-    // TODO: change?
-    // return false
-    return groupExistsInDB
+    return false
 }
 
 function logInUserAndGroupLS(groupName) {
@@ -269,7 +238,6 @@ if (isUserLoggedInGroup == true) {
 
 
 function addItemToList() {
-    // playElAnimation(addButtonEl)
     if (inputFieldEl.value.length > 27 || !inputFieldEl.value) {
         changeBgColorAndBack(inputFieldEl, "#F97272", "#DCE1EB")
     } else if (isUserLoggedInGroup == true && userNameEl.value && inputFieldEl.value) {

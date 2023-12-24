@@ -67,9 +67,13 @@ git clone https://github.com/your-username/your-repository.git
 ### Contributing:
 Contributions are welcome! If you have ideas for improvements or find any issues, feel free to open an issue or submit a pull request.
 
-### TODO's so far:
-```
-TODO:
-- 
+### TODO so far:
 
-```
+- [ ] live chat with feed (objects?)
+- [x] ability to select/color/icon an item from list baset on your account
+- fix the password required, when entering group
+- add ONE EventListener for every interaction instead of 8
+- remove commented previous testing code
+- add a normal message with what went wrong in the enterGroup() function
+- change groupExistsInDB to simply return true or false in the checkGroupExistsInDB() function
+- restriction about creating a group with whitespaces

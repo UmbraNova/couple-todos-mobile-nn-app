@@ -69,11 +69,22 @@ Contributions are welcome! If you have ideas for improvements or find any issues
 
 ### TODO so far:
 
-- [ ] live chat with feed (objects?)
-- [x] ability to select/color/icon an item from list baset on your account
-- fix the password required, when entering group
-- add ONE EventListener for every interaction instead of 8
-- remove commented previous testing code
-- add a normal message with what went wrong in the enterGroup() function
-- change groupExistsInDB to simply return true or false in the checkGroupExistsInDB() function
-- restriction about creating a group with whitespaces
+- [ ] ability to chat with other participants in the group, live chat with messages that last 48h
+- [ ] add deleted items feed?
+- [ ] add ONE EventListener for every interaction instead of 8
+- [x] remove commented previous testing code
+- [ ] add a normal message with what went wrong in the enterGroup() function
+- [x] change groupExistsInDB to simply return true or false in the checkGroupExistsInDB() function
+- [x] restriction about creating a group with whitespaces
+- [x] add check password function to check in DB if is matching group name and password, not only group name
+- [ ] modify testNameAndPassword() function to return error code to display for user
+- [x] add changeBgAndBack(elem, color1, color2) function to incorporate all the cases in one function
+- [x] add clarification text in login window to make sure the user understands what to do
+- [ ] add popup window with indications and notes about what is the app, what it does and how to use it, with photos. Var in LS
+- [x] group all important buttons and inputs in container to free some space on the screen
+- [x] add label with checkbox input to be able to color items and remove them by checking the "remove" button
+- [x] ability to select color/icon for the item in the list, from the array of colors
+- [ ] add report a bug button with function in the login window, create the bug-reports in the database
+- [ ] add darkmode OR select background color and contrast/main colors from an array of predetermined color palettes. Use LS to store this data
+- [ ] add posibility to modify your color in the "people in group" section?
+- [ ] fix the height of buttons and inputs, if you look very close on mobile, it is not aligned. Maybe 1px

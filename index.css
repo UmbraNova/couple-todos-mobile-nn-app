@@ -98,11 +98,16 @@ button, span, .buttons-container > label {
     accent-color: red;
 }
 
+.buttons-container > button {
+    height: 100%;
+}
+
 .buttons-container > button[id="add-button"] {
     border-radius: 0 var(--radius) var(--radius) 0;
     min-width: 160px;
     height: 100%;
 }
+
 
 #group-list {
     list-style-type: none;

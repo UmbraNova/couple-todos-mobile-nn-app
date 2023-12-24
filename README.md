@@ -37,13 +37,13 @@ Collaborate with Others: Share the group name and password with others to collab
 Getting Started:
 
 How to import
-```
+```<language identifier>
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
 import { getDatabase, ref, push, onValue, remove, update } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 ```
 
 How to initialize
-```
+```<language identifier>
 const appSettings = {
     databaseURL: "https://couple-todos-default-rtdb.europe-west1.firebasedatabase.app/"
 }
@@ -54,7 +54,7 @@ const database = getDatabase(app)
 
 
 Clone the repository:
-```
+```<language identifier>
 git clone https://github.com/your-username/your-repository.git
 ```
 

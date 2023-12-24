@@ -117,10 +117,6 @@ button, span, .buttons-container > label {
     gap: 10px;
 }
 
-.container button, #login-container button {
-    margin-bottom: 10px;
-}
-
 #group-list li {
     font-size: 20px;
     /* background-color: #F3EDC8; */

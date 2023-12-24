@@ -114,4 +114,4 @@ Contributions are welcome! If you have ideas for improvements or find any issues
 - [ ] add report a bug button with function in the login window, create the bug-reports in the database
 - [ ] add darkmode OR select background color and contrast/main colors from an array of predetermined color palettes. Use LS to store this data
 - [ ] add posibility to modify your color in the "people in group" section?
-- [ ] fix the height of buttons and inputs, if you look very close on mobile, it is not aligned. Maybe 1px
+- [x] fix the height of buttons and inputs, if you look very close on mobile, it is not aligned. Maybe 1px

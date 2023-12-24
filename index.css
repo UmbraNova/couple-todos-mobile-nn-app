@@ -76,6 +76,34 @@ button, span, .buttons-container > label {
     padding: 10px;
 }
 
+.buttons-container {
+    display: flex;
+    height: 44px;
+    margin-bottom: 10px;
+}
+
+.buttons-container > label {
+    border-radius: var(--radius) 0 0 var(--radius);
+    width: 50%;
+}
+
+.buttons-container > label > input {
+    vertical-align: middle;
+    accent-color: var(--main-bg-hover-color);
+    width: 18px;
+    height: 18px;
+}
+
+.buttons-container > label > input:checked {
+    accent-color: red;
+}
+
+.buttons-container > button[id="add-button"] {
+    border-radius: 0 var(--radius) var(--radius) 0;
+    min-width: 160px;
+    height: 100%;
+}
+
 #group-list {
     list-style-type: none;
     padding: 0;
@@ -197,31 +225,6 @@ hr {
     }
 }
 
-.buttons-container {
-    display: flex;
-}
-
-.buttons-container > label {
-    border-radius: var(--radius) 0 0 var(--radius);
-    height: 44px;
-    width: 50%;
-}
-
-.buttons-container > label > input {
-    vertical-align: middle;
-    accent-color: var(--main-bg-hover-color);
-    width: 18px;
-    height: 18px;
-}
-
-.buttons-container > label > input:checked {
-    accent-color: red;
-}
-
-.buttons-container > button[id="add-button"] {
-    border-radius: 0 var(--radius) var(--radius) 0;
-    min-width: 160px;
-}
 
 #enter-group-button {
     border-radius: var(--radius) 0 0 var(--radius);
@@ -245,19 +248,19 @@ hr {
 
 .name-and-group {
     display: flex;
-    margin-bottom: -16px;
+    height: 44px;
 }
 
 .name-and-group > button {
     width: 50%;
     margin: 0;
     border-radius: 0 var(--radius) var(--radius) 0;
+    height: 100%;
 }
 
 .name-and-group > input {
     width: 50%;
     margin: 0;
-    height: 44px;
     border-radius: var(--radius) 0 0 var(--radius);
 }
 

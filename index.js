@@ -148,8 +148,6 @@ function changeBgColorAndBack(elem, color1, color2) {
     }, 150)
 }
 
-
-        
 function setUserNameLS(name="0") {
     localStorage.setItem("userNameLS", JSON.stringify(name))
 }

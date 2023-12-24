@@ -132,6 +132,13 @@ nav {
     margin-bottom: -16px;
 }
 
+nav span { 
+    max-height: 44px;
+    height: 44px;
+    /* background-color: #DCE1EB; looks good */
+    /* color: black; looks good */
+}
+
 nav li {
     height: 10px;
     list-style-type: none;

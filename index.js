@@ -59,7 +59,7 @@ let userIDinDB = ""
 const usersInGroupDB = ref(database, `${groupNameLS}NkvAEtqN5`)
 const itemsListInDB = ref(database, groupNameLS)
 let groupArrayDB = []
-const colors = ["#FFF78A", "#FB8B24", "#BE3144", "#FFFDF8"]
+const colors = ["#FFC0D9", "#6DB9EF", "#ED8C35", "#FFFDF8"]
 
 enterGroupButtonEl.addEventListener("click", enterGroup)
 newGroupButtonEl.addEventListener("click", addGroupInDB)

@@ -151,6 +151,7 @@ button, span, .buttons-container > label {
 p {
     border-radius: var(--radius);
     padding: 10px;
+    text-shadow: 0px 1px 4px rgba(255, 255, 255, 0.2);
 }
 
 #group-list {
@@ -231,6 +232,7 @@ hr {
 
 .info-section > li  {
     margin-bottom: 10px;
+    text-shadow: 0px 1px 4px rgba(255, 255, 255, 0.2);
 }
 
 #on-touch:checked + #people-dropdown-menu {height: var(--total-height);}

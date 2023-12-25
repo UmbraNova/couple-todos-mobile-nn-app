@@ -3,10 +3,15 @@
     --group-multiply: 1;
     --slide-height: 54px; /* change the contianer height of the "people in group" section */
     --total-height: calc(var(--slide-height) * var(--group-multiply) + 44px);
-    /* --main-bg-color: #005B41; */
-    /* --main-bg-hover-color: #232D3F; */
-    --main-bg-color: #29ADB2;
-    --main-bg-hover-color: #0766AD;
+    --main-color: #29ADB2;
+    --main-hover-color: #0766AD;
+
+    --main-bg-color: #EEF0F4;
+    --main-bg-second-color: #ffffff;
+
+    --font-first-color: #FDFDFD;
+    --font-second-color: #000;
+    /* --font-second-color: #432000; */
     --radius: 4px;
 }
 
@@ -19,8 +24,8 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: 'Rubik', sans-serif;
-    background-color: #EEF0F4;
-    color: #432000;
+    background-color: var(--main-bg-color);
+    color: var(--font-second-color);
     user-select: none;
 }
 
@@ -36,7 +41,7 @@ html, body {
 }
 
 input {
-    color: #432000;
+    color: var(--font-second-color);
     background-color: #DCE1EB;
     border: 0;
     border-radius: var(--radius);
@@ -66,8 +71,8 @@ input[id="input-field"] {
 
 
 button, span, .buttons-container > label {
-    color: #FDFDFD;
-    background-color: var(--main-bg-color);
+    color: var(--font-first-color);
+    background-color: var(--main-color);
     border: 0;
     border-radius: var(--radius);
     font-size: 20px;
@@ -89,7 +94,7 @@ button, span, .buttons-container > label {
 
 .buttons-container > label > input {
     vertical-align: middle;
-    accent-color: var(--main-bg-hover-color);
+    accent-color: var(--main-hover-color);
     width: 18px;
     height: 18px;
 }
@@ -104,8 +109,25 @@ button, span, .buttons-container > label {
 
 .buttons-container > button[id="add-button"] {
     border-radius: 0 var(--radius) var(--radius) 0;
-    min-width: 160px;
+    /* min-width: 160px; */
+    width: 50%;
     height: 100%;
+}
+
+.colors-container {
+    display: flex;
+    height: 44px;
+    margin-bottom: 10px;
+}
+
+.colors-container #background-colors-btn {
+    border-radius: var(--radius) 0 0 var(--radius);
+    width: 50%;
+}
+
+.colors-container #main-colors-btn {
+    border-radius: 0 var(--radius) var(--radius) 0;
+    width: 50%;
 }
 
 .name-and-group {
@@ -199,7 +221,7 @@ span::after {
 
 hr {
     width: 100%;
-    border: 1px solid #432000;
+    border: 1px solid var(--font-second-color);
 }
 
 .info-section {
@@ -216,7 +238,7 @@ hr {
 
 /* login START */
 #login-window {
-    background: #ffffff;
+    background: var(--main-bg-second-color);
     border: 1px solid black;
     border-radius: var(--radius);
     display: none;
@@ -234,7 +256,7 @@ hr {
     display: flex;
     flex-direction: column;
     margin: auto;
-    width: 300px;
+    min-width: 275px;
 }
 
 #login-window-content > input {
@@ -313,7 +335,7 @@ hr {
 /* deactivate the hover effect on mobile devices */
 @media (hover: hover) {
     #shopping-list li:hover, button:hover, span:hover, #label-for-remove-btn:hover {
-        background-color: var(--main-bg-hover-color) !important;
+        background-color: var(--main-hover-color) !important;
         color: #FDFDFD;
         cursor: pointer;
     }

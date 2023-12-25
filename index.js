@@ -30,10 +30,6 @@ const userNameEl = document.getElementById("user-name")
 const peopleInGroupButtonEl = document.getElementById("people-in-group")
 let groupNameLS = JSON.parse(localStorage.getItem("groupNameLS"))
 const removeBtn = document.getElementById("remove-btn")
-const mainBgColor = document.documentElement.style.getPropertyValue("--main-bg-color")
-const mainBgHoverColor = document.documentElement.style.getPropertyValue("--main-bg-hover-color")
-// const mainBgColor = "#29ADB2"
-// const mainBgHoverColor = "#0766AD"
 
 
 if (JSON.parse(localStorage.getItem("groupNameLS")) === null) {
@@ -49,7 +45,73 @@ let userIDinDB = ""
 const usersInGroupDB = ref(database, `${groupNameLS}NkvAEtqN5`)
 const itemsListInDB = ref(database, groupNameLS)
 let groupArrayDB = []
-const colors = ["#FFFDF8", "#FFC0D9", "#6DB9EF", "#ED8C35"]
+const itemColors = ["#FFFDF8", "#FFC0D9", "#6DB9EF", "#ED8C35"]
+
+
+
+
+
+
+// const mainColor = document.documentElement.style.getPropertyValue("--main-bg-color")
+// const mainHoverColor = document.documentElement.style.getPropertyValue("--main-bg-hover-color")
+const changeColorsBtn = document.getElementById("main-colors-btn")
+const changeBgColorsBtn = document.getElementById("background-colors-btn")
+changeColorsBtn.addEventListener("click", changeMainColor)
+changeBgColorsBtn.addEventListener("click", changeMainBgColor)
+
+// list of lists, first color is the main color of buttons, second is the hover color
+const mainColors = [["#29ADB2", "#0766AD"], ["#005B41", "#232D3F"], ["#000000", "#000000"]]
+const mainBgColors = [["#EEF0F4", "#ffffff"], ["#161A30", "#31304D"], ["#092635", "#1B4242"]]
+
+
+
+if (JSON.parse(localStorage.getItem("mainColorIndex")) === null) {
+    localStorage.setItem("mainColorIndex", JSON.stringify(0))
+}
+if (JSON.parse(localStorage.getItem("mainBgColorIndex")) === null) {
+    localStorage.setItem("mainBgColorIndex", JSON.stringify(0))
+}
+
+let mainColorIndex = JSON.parse(localStorage.getItem("mainColorIndex"))
+let mainBgColorIndex = JSON.parse(localStorage.getItem("mainBgColorIndex"))
+
+let mainColor = mainColors[mainColorIndex][0]
+let mainHoverColor = mainColors[mainColorIndex][1]
+
+let mainBgColor = mainBgColors[mainBgColorIndex][0]
+let mainBgSecondColor = mainBgColors[mainBgColorIndex][1]
+
+document.documentElement.style.setProperty("--main-color", mainColor)
+document.documentElement.style.setProperty("--main-hover-color", mainHoverColor)
+
+document.documentElement.style.setProperty("--main-bg-color", mainBgColor)
+document.documentElement.style.setProperty("--main-bg-second-color", mainBgSecondColor)
+
+
+function changeMainBgColor() {
+    let newIndex = mainBgColorIndex + 1
+    if (newIndex > mainBgColors.length - 1) {
+        newIndex = 0
+    }
+    localStorage.setItem("mainBgColorIndex", JSON.stringify(newIndex))
+    // window.location.replace(window.location.href)
+    history.pushState({}, "", window.location.href)
+}
+
+function changeMainColor() {
+    let newIndex = mainColorIndex + 1
+    if (newIndex > mainColors.length - 1) {
+        newIndex = 0
+    }
+    localStorage.setItem("mainColorIndex", JSON.stringify(newIndex))
+    // window.location.replace(window.location.href)
+    history.pushState({}, "", window.location.href)
+}
+
+
+
+
+
 
 enterGroupButtonEl.addEventListener("click", enterGroup)
 newGroupButtonEl.addEventListener("click", addGroupInDB)
@@ -80,6 +142,7 @@ openLoginWindow.addEventListener("click", function() {
     }
 })
 
+
     
 function removeOnlineUserFromGroupDB(gName) {
     let exactUserLocationInDB = ref(database, `${gName}NkvAEtqN5/${userIDinDB}`)
@@ -104,7 +167,7 @@ onValue(usersInGroupDB, function(snapshot) {
             allUsers.push(usersInGroubOnlineInDB[i][1])
         }
         if (isUserLoggedInGroup) {
-            changeBgColorAndBack(peopleInGroupButtonEl, "wheat", mainBgColor)
+            changeBgColorAndBack(peopleInGroupButtonEl, "wheat", mainColor)
             renderUserOnline(allUsers)
         }
     }
@@ -176,7 +239,9 @@ function enterGroup() {
         logInUserAndGroupLS(groupNameValue)
         closeLoginWindow()
         addUserOnlineInGroupDB(groupNameValue)
-        location.reload()
+        // location.reload()
+        window.location.replace(window.location.href)
+
     } else {
         loginErrorInfoEl.textContent = "Group doesn't exist or password is incorect"
         changeBgColorAndBack(loginErrorInfoEl, "#F97272", "#ffffff")
@@ -200,14 +265,12 @@ function logInUserAndGroupLS(groupName) {
 
 function changeVisualAfterLogIn(name="Login group") {
     openLoginWindow.textContent = name
-    openLoginWindow.style.backgroundColor = mainBgHoverColor
     groupNameFieldEl.value = ""
     passwordFieldEl.value = ""
 }
 
 function changeVisualEfterExit() {
     openLoginWindow.textContent = "Login group"
-    openLoginWindow.style.backgroundColor = mainBgHoverColor
     groupNameFieldEl.value = ""
     passwordFieldEl.value = ""
 }
@@ -216,7 +279,8 @@ function exitGroupInLS() {
     closeLoginWindow()
     localStorage.setItem("isUserLogged", JSON.stringify(false))
     localStorage.setItem("groupNameLS", JSON.stringify("0"))
-    location.reload()
+    // location.reload()
+    window.location.replace(window.location.href)
     groupListEl.innerHTML = "No items... yet"
     changeVisualEfterExit()
     removeOnlineUserFromGroupDB(groupNameLS)
@@ -243,7 +307,7 @@ function addItemToList() {
     } else if (isUserLoggedInGroup == true && userNameEl.value && inputFieldEl.value) {
         let inputValue = {name: inputFieldEl.value, color: "#FFFDF8", index: 0}
         push(itemsListInDB, inputValue)
-        changeBgColorAndBack(addButtonEl, mainBgHoverColor, mainBgColor)
+        changeBgColorAndBack(addButtonEl, mainHoverColor, mainColor)
         clearInputFieldEl()
     } else if (!userNameEl.value) {
         changeBgColorAndBack(userNameEl, "#F97272", "#DCE1EB")
@@ -308,11 +372,11 @@ function appendToGroupListEl(item) {
             remove(exactItemLocationInDB)
         } else {
             let newIndex = itemValue.index + 1
-            if (newIndex > colors.length - 1) {
+            if (newIndex > itemColors.length - 1) {
                 newIndex = 0
             }
             let exactItemLocationInDB = ref(database, `${groupNameLS}/${itemID}`)
-            update(exactItemLocationInDB, {color: colors[newIndex], index: newIndex})
+            update(exactItemLocationInDB, {color: itemColors[newIndex], index: newIndex})
         }
     })
     groupListEl.append(newEl)

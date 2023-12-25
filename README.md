@@ -11,14 +11,15 @@ APP link: http://couple-todos-mobile-nonnative-app.netlify.app/
 **Welcome to Collaborative Group Organizer**, a non-native mobile app built using *JavaScript*, *CSS*, and *HTML*. This app leverages Firebase Realtime Database to provide seamless, real-time collaboration for creating and managing shared lists within groups. Whether it's organizing a shopping list, planning for an event, or managing tasks, this app allows multiple users to collaborate in real-time.
 
 <sup>note*</sup>
-<sub>*Remember! This is a personal project for learning purposes, so maybe I used more const's than needed and also some refactoring is necessary*</sub>
+<sub>*Remember! This is a personal project for learning purposes, maybe some refactoring is necessary. Also, idk why but this is my favorite function*</sub>
 
 ```javascript
-const enterGroupButtonEl = document.getElementById("enter-group-button")
-const newGroupButtonEl = document.getElementById("new-group-button")
-const groupNameFieldEl = document.getElementById("group-name-field")
-const passwordFieldEl = document.getElementById("password-field")
-const groupExitButtonEl = document.getElementById("exit-group-button")
+function changeBgColorAndBack(elem, color1, color2) {
+    elem.style.backgroundColor = color1
+    setTimeout(function() {
+        elem.style.backgroundColor = color2
+    }, 150)
+}
 ```
 
 
@@ -112,6 +113,6 @@ Contributions are welcome! If you have ideas for improvements or find any issues
 - [x] add label with checkbox input to be able to color items and remove them by checking the "remove" button
 - [x] ability to select color/icon for the item in the list, from the array of colors
 - [ ] add report a bug button with function in the login window, create the bug-reports in the database
-- [ ] add darkmode OR select background color and contrast/main colors from an array of predetermined color palettes. Use LS to store this data
+- [x] add darkmode OR select background color and contrast/main colors from an array of predetermined color palettes. Use LS to store this data
 - [ ] add posibility to modify your color in the "people in group" section?
 - [x] fix the height of buttons and inputs, if you look very close on mobile, it is not aligned. Maybe 1px

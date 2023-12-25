@@ -94,8 +94,8 @@ function changeMainBgColor() {
         newIndex = 0
     }
     localStorage.setItem("mainBgColorIndex", JSON.stringify(newIndex))
-    // window.location.replace(window.location.href)
-    history.pushState({}, "", window.location.href)
+    window.location.replace(window.location.href)
+    // history.pushState({}, "", window.location.href)
 }
 
 function changeMainColor() {
@@ -104,8 +104,8 @@ function changeMainColor() {
         newIndex = 0
     }
     localStorage.setItem("mainColorIndex", JSON.stringify(newIndex))
-    // window.location.replace(window.location.href)
-    history.pushState({}, "", window.location.href)
+    window.location.replace(window.location.href)
+    // history.pushState({}, "", window.location.href)
 }
 
 

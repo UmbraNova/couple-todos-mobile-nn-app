@@ -50,14 +50,14 @@ Create or Join Groups: Start by creating your own group or join an existing one 
 
 * How to import
 ```javascript
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
-import { getDatabase, ref, push, onValue, remove, update } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+import { initializeApp } from "https://www.gstatic.com/dbname/version/dbname.js"
+import { getDatabase, ref, push, onValue, remove, update } from "https://www.gstatic.com/dbname/version/dbname.js"
 ```
 
 * How to initialize
 ```javascript
 const appSettings = {
-    databaseURL: "https://couple-todos-default-rtdb.europe-west1.firebasedatabase.app/"
+    databaseURL: "https://couple-todos-default-xxxx.location.yourdbnamegoeshere.app/"
 }
 
 const app = initializeApp(appSettings)
